@@ -1,35 +1,35 @@
-// src/components/LandingPage.jsx
-
 import React from 'react';
-import { 
-  User, 
-  Search, 
-  ShoppingCart, 
-  Truck, 
-  FileText, 
-  RotateCcw, 
+import {
+  User,
+  Search,
+  ShoppingCart,
+  Truck,
+  FileText,
+  RotateCcw,
   Shield,
   Linkedin,
   Instagram,
   Mail,
-  Youtube, 
+  Youtube,
   Facebook,
   Star,
-  Volume2,
-  Bluetooth,
-  Battery,
-  Zap,
+  Volume2, // Keep Volume2 as a brand icon, as sound is still part of electronics
+  Bluetooth, // Could be generic, useful for many electronics
+  Battery,   // Generic
+  Zap,       // Generic
   ChevronRight
 } from 'lucide-react';
 import './LandingPage.css';
 
 
 const imageUrls = {
-  mainHeadphones: 'https://plus.unsplash.com/premium_photo-1678099940967-73fe30680949?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZHBob25lc3xlbnwwfHwwfHx8MA%3D%3D',
-  whiteHeadphones: 'https://plus.unsplash.com/premium_photo-1679864782376-bdbbb87d9027?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzd8fGhlYWRwaG9uZXN8ZW58MHx8MHx8fDA%3D.png',
-  blueEarbuds: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhlYWRwaG9uZXN8ZW58MHx8MHx8fDA%3D.png',
-  blackSpeaker: 'https://images.unsplash.com/photo-1529359744902-86b2ab9edaea?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.png',
-  womanListening: 'https://images.unsplash.com/photo-1730973915515-e79273d90b7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIyfHxoZWFkcGhvbmVzfGVufDB8fDB8fHww',
+  // Main hero image - let's find a more general electronics image or keep a modern tech vibe
+  abstractTech: 'https://plus.unsplash.com/premium_photo-1678099940967-73fe30680949?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZmphbmtzaGVhZHBob25lc3xlbnwwfHwwfHx8MA%3D%3D', // Example of a generic tech image (laptop, phone, etc. on a desk)
+  // For the introduction section, keep abstract sound or choose something that represents innovation/tech
+  mainProduct: 'https://t4.ftcdn.net/jpg/14/08/64/83/240_F_1408648340_bQHXLioid5yCVVhEX9TkNRUSHdAMyLLC.jpg', // Can represent innovation/data
+  // You might want to remove specific product images if you don't have a product section
+  // For the help section, keeping a person using tech is good.
+  personUsingTech: 'https://media.gettyimages.com/id/599104836/photo/increasing-her-efforts-to-maximise-her-success.jpg?s=612x612&w=0&k=20&c=09pcUcgrZg_LRUaHE1D_O9HwkSi0yXhopxiJe8VEqwA=', // Woman listening to music still fits 'electronics' user
 };
 
 const LandingPage = () => {
@@ -39,20 +39,18 @@ const LandingPage = () => {
       <header className="header">
         <nav className="navbar">
           <a href="/" className="nav-brand">
-            <Volume2 className="brand-icon" />
+            <Volume2 className="brand-icon" /> {/* Keeping the sound icon for brand, as audio is a major electronic category */}
             <span className="brand-text">ZepCart</span>
           </a>
           <div className="nav-links">
             <a href="#home" className="nav-link active">Home</a>
-            <a href="#products" className="nav-link">Products</a>
+            <a href="#introduction" className="nav-link">About ZepCart</a>
             <a href="#help" className="nav-link">Help Centre</a>
           </div>
           <div className="nav-icons">
-            {/* --- THIS IS THE CHANGE --- */}
             <a href="/login" className="nav-icon-btn">
               <User size={20} />
             </a>
-            {/* -------------------------- */}
             <button className="nav-icon-btn">
               <Search size={20} />
             </button>
@@ -69,114 +67,80 @@ const LandingPage = () => {
         <section id="home" className="hero-section">
             <div className="hero-grid">
                 <div className="hero-text-content">
-                    <p className="enjoy-text">Enjoy Every Single Beat</p>
+                    <p className="enjoy-text">Experience Tomorrow's Technology</p> {/* More general */}
                     <h1 className="main-headline">
-                        <span className="headline-gradient">Immersive Sound</span>
-                        <span className="headline-sub">Experience True Fidelity</span>
+                        <span className="headline-gradient">Innovative Electronics</span> {/* Changed to electronics */}
+                        <span className="headline-sub">Powering Your Digital Life</span> {/* More general */}
                     </h1>
-                    <p className="hero-subtitle">Our new X-Series headphones deliver unparalleled audio clarity and deep, resonant bass in a sleek, comfortable design.</p>
-                    
+                    <p className="hero-subtitle">Discover our cutting-edge range of electronics designed to enhance your everyday tasks and ignite your passion for technology.</p> {/* More general */}
+
                     <div className="hero-buttons">
                         <button className="btn btn-primary">
                             <ShoppingCart size={18} />
-                            Buy Now
+                            Start Shopping with us
                         </button>
-                        <button className="btn btn-secondary">
-                            Explore More
-                        </button>
+                        {/* <button className="btn btn-secondary">
+                            Explore Collections
+                        </button> */}
                     </div>
 
                     <div className="reviews-preview">
                         <div className="stars">
                             {[...Array(5)].map((_, i) => <Star key={i} className="star-icon" />)}
                         </div>
-                        <span className="review-text">4.8/5 from 2,847 reviews</span>
+                        <span className="review-text">Trusted by thousands of tech enthusiasts!</span> {/* More general review text */}
                     </div>
                 </div>
 
                 <div className="hero-product-showcase">
                     <div className="product-image-wrapper">
-                        <img src={imageUrls.mainHeadphones} alt="Premium Wireless Headphones" className="hero-headphones-img"/>
+                        <img src={imageUrls.mainProduct} alt="Premium Electronic Device" className="hero-headphones-img"/> {/* Changed alt text and potentially image */}
                         <div className="product-glow"></div>
                     </div>
                 </div>
             </div>
 
             <div className="features-bar">
-                <div className="feature-item"><Battery size={20} /> 20hr Battery</div>
-                <div className="feature-item"><Volume2 size={20} /> Noise Cancelling</div>
-                <div className="feature-item"><Bluetooth size={20} /> Bluetooth 5.2</div>
-                <div className="feature-item"><Zap size={20} /> Fast Charge</div>
-                <div className="feature-item"><Shield size={20} /> 1-Year Warranty</div>
+                <div className="feature-item"><Battery size={20} /> Long-Lasting</div> {/* More general */}
+                <div className="feature-item"><Zap size={20} /> Fast Charging</div> {/* More general */}
+                <div className="feature-item"><Bluetooth size={20} /> Seamless Connectivity</div> {/* More general */}
+                <div className="feature-item"><Shield size={20} /> Secure & Reliable</div> {/* More general */}
+                <div className="feature-item"><FileText size={20} /> Comprehensive Support</div> {/* New, general feature */}
             </div>
         </section>
 
 
-        {/* -------------------- PRODUCTS SECTION -------------------- */}
-        <section id="products" className="products-section">
-          <div className="section-header">
-            <h2 className="section-title">Our Products</h2>
-            <p className="section-subtitle">Discover our premium audio collection, crafted for pure sound.</p>
+        {/* -------------------- INTRODUCTION SECTION -------------------- */}
+        <section id="introduction" className="introduction-section">
+          <div className="intro-image-container">
+            <img src={imageUrls.abstractTech} alt="Abstract technology illustration" /> {/* Changed alt text */}
           </div>
-          
-          <div className="product-cards">
-            {/* Card 1 */}
-            <div className="product-card">
-              <div className="product-image">
-                <img src={imageUrls.whiteHeadphones} alt="Wireless Headphones" />
+          <div className="intro-content">
+            <h2 className="section-title">Welcome to ZepCart: Your Hub for Modern Electronics</h2> {/* General title */}
+            <p className="section-subtitle">
+              At ZepCart, we're passionate about bringing you the latest and most innovative electronic devices that seamlessly integrate into your lifestyle. From cutting-edge gadgets to essential home tech, we've got you covered.
+            </p>
+            <p className="section-subtitle">
+              Founded on the principle of delivering **quality and innovation**, ZepCart is your ultimate destination for everything electronic. Our curated selection ensures you get reliable performance and exceptional value. Explore our diverse range and upgrade your tech game today!
+            </p>
+            <div className="intro-features">
+              <div className="intro-feature-item">
+                <Star size={24} className="feature-icon" />
+                <span>Top-Rated Products</span> {/* More general */}
               </div>
-              <div className="product-info">
-                <h3>Wireless Headphones</h3>
-                <p>Premium noise-cancelling technology.</p>
-                <div className="product-price">₹9,999</div>
-                 <div className="product-rating">
-                    <div className="stars">
-                        {[...Array(5)].map((_, i) => <Star key={i} className="star-icon small" />)}
-                    </div>
-                    <span>(124)</span>
-                </div>
-                <button className="btn btn-card">View Details</button>
+              <div className="intro-feature-item">
+                <Shield size={24} className="feature-icon" />
+                <span>Certified Quality</span> {/* More general */}
               </div>
-            </div>
-            {/* Card 2 */}
-            <div className="product-card">
-              <div className="product-image">
-                <img src={imageUrls.blueEarbuds} alt="True Wireless Earbuds" />
-              </div>
-              <div className="product-info">
-                <h3>True Wireless Earbuds</h3>
-                <p>Crystal clear sound, all-day comfort.</p>
-                <div className="product-price">₹4,999</div>
-                 <div className="product-rating">
-                    <div className="stars">
-                        {[...Array(4)].map((_, i) => <Star key={i} className="star-icon small" />)}
-                        <Star className="star-icon small empty" />
-                    </div>
-                    <span>(89)</span>
-                </div>
-                <button className="btn btn-card">View Details</button>
+              <div className="intro-feature-item">
+                <Zap size={24} className="feature-icon" /> {/* Changed icon and text */}
+                <span>Next-Gen Innovation</span> {/* More general */}
               </div>
             </div>
-            {/* Card 3 */}
-            <div className="product-card">
-              <div className="product-image">
-                <img src={imageUrls.blackSpeaker} alt="Wireless Speaker" />
-              </div>
-              <div className="product-info">
-                <h3>360° Wireless Speaker</h3>
-                <p>Room-filling surround sound experience.</p>
-                <div className="product-price">₹7,999</div>
-                 <div className="product-rating">
-                    <div className="stars">
-                        {[...Array(5)].map((_, i) => <Star key={i} className="star-icon small" />)}
-                    </div>
-                    <span>(156)</span>
-                </div>
-                <button className="btn btn-card">View Details</button>
-              </div>
-            </div>
+            <button className="btn btn-primary">Discover More</button> {/* Changed button text */}
           </div>
         </section>
+
 
         {/* -------------------- SERVICES SECTION -------------------- */}
         <section className="services-section">
@@ -187,18 +151,18 @@ const LandingPage = () => {
             <div className="services-container">
                 <div className="service-item">
                     <div className="service-icon-wrapper"><Truck size={32} /></div>
-                    <h3>Free Shipping</h3>
-                    <p>On all orders above ₹2,999, delivered right to your doorstep.</p>
+                    <h3>Fast Shipping</h3> {/* More general */}
+                    <p>Quick and reliable delivery on all your electronic purchases.</p> {/* More general */}
                 </div>
                 <div className="service-item">
                     <div className="service-icon-wrapper"><FileText size={32} /></div>
-                    <h3>GST Billing</h3>
-                    <p>We provide proper GST invoicing for all your business needs.</p>
+                    <h3>Detailed Invoicing</h3> {/* More general */}
+                    <p>Transparent billing with all necessary details for easy record-keeping.</p> {/* More general */}
                 </div>
                 <div className="service-item">
                     <div className="service-icon-wrapper"><RotateCcw size={32} /></div>
-                    <h3>7-Day Replacement</h3>
-                    <p>Enjoy a hassle-free replacement policy for complete peace of mind.</p>
+                    <h3>Easy Returns</h3> {/* More general */}
+                    <p>Hassle-free return policy for ultimate peace of mind on every product.</p> {/* More general */}
                 </div>
             </div>
         </section>
@@ -206,17 +170,17 @@ const LandingPage = () => {
         {/* -------------------- HELP CENTRE SECTION -------------------- */}
         <section id="help" className="help-section">
           <div className="help-content">
-            <h2 className="section-title">Need Help?</h2>
-            <p className="section-subtitle">Our support team is here to assist you with any questions.</p>
+            <h2 className="section-title">Need Assistance?</h2> {/* More general */}
+            <p className="section-subtitle">Our dedicated support team is ready to help with any queries about our electronics.</p> {/* More general */}
             <div className="help-buttons">
-              <a href="#" className="help-btn"><span>Track Your Order</span> <ChevronRight /></a>
-              <a href="#" className="help-btn"><span>Return Policy</span> <ChevronRight /></a>
-              <a href="#" className="help-btn"><span>Service Centres</span> <ChevronRight /></a>
-              <a href="#" className="help-btn"><span>Warranty Claims</span> <ChevronRight /></a>
+              <a href="#" className="help-btn"><span>Check Order Status</span> <ChevronRight /></a> {/* More general */}
+              <a href="#" className="help-btn"><span>Warranty Information</span> <ChevronRight /></a> {/* More general */}
+              <a href="#" className="help-btn"><span>Product Support</span> <ChevronRight /></a> {/* More general */}
+              <a href="#" className="help-btn"><span>Contact Customer Care</span> <ChevronRight /></a> {/* More general */}
             </div>
           </div>
           <div className="help-image-container">
-              <img src={imageUrls.womanListening} alt="Customer enjoying music" />
+              <img src={imageUrls.personUsingTech} alt="Person using electronic device" /> {/* More general alt text */}
           </div>
         </section>
       </main>
@@ -230,7 +194,7 @@ const LandingPage = () => {
                         <Volume2 className="brand-icon" />
                         <h3>ZepCart</h3>
                     </a>
-                    <p>Premium Sound, Unmatched Experience.</p>
+                    <p>Innovative Electronics, Unmatched Experience.</p> {/* More general */}
                 </div>
                 <div className="footer-links-container">
                     <div className="footer-links">
@@ -262,4 +226,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LandingPage; 
