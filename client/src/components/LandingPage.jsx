@@ -40,7 +40,7 @@ const LandingPage = () => {
         <nav className="navbar">
           <a href="/" className="nav-brand">
             <Volume2 className="brand-icon" />
-            <span className="brand-text">AudioTech</span>
+            <span className="brand-text">ZepCart</span>
           </a>
           <div className="nav-links">
             <a href="#home" className="nav-link active">Home</a>
@@ -228,7 +228,7 @@ const LandingPage = () => {
                 <div className="footer-brand">
                     <a href="/" className="nav-brand">
                         <Volume2 className="brand-icon" />
-                        <h3>AudioTech</h3>
+                        <h3>ZepCart</h3>
                     </a>
                     <p>Premium Sound, Unmatched Experience.</p>
                 </div>
@@ -248,7 +248,7 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="footer-bottom">
-                 <p>© {new Date().getFullYear()} AudioTech. All Rights Reserved.</p>
+                 <p>© {new Date().getFullYear()} ZepCart. All Rights Reserved.</p>
                 <div className="social-icons">
                     <a href="#" className="social-link"><Linkedin size={20} /></a>
                     <a href="#" className="social-link"><Instagram size={20} /></a>

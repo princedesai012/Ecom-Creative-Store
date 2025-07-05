@@ -42,7 +42,7 @@ const LoginPage = () => {
         <div className="login-form-header">
           <a href="/" className="brand-logo">
             <Volume2 size={18} />
-            <span>AudioTech</span>
+            <span>ZepCart</span>
           </a>
           <h1 className="login-title">Welcome Back</h1>
           <p className="login-subtitle">Enter your credentials to access your account.</p>

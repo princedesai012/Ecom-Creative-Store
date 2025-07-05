@@ -1,122 +1,120 @@
 // src/components/SignUpPage.jsx
 
-import React, { useState } from 'react'; // Import useState
-import { Volume2, User, Mail, Lock, ShieldCheck, UserPlus } from 'lucide-react';
-import './SignUpPage.css';
+import React, { useState } from 'react';
+import { Volume2, User, Mail, Lock, ShieldCheck, UserPlus, KeyRound } from 'lucide-react';
+import './SignUpPage.css'; // This will be the new, themed CSS file
 
 const SignUpPage = () => {
-  // --- State Management for Sign Up Form ---
+  // State to manage which step of the form is active
+  const [step, setStep] = useState('details'); 
+
+  // State to hold all form data
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
-  // --- Handle input changes ---
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // State for the OTP input
+  const [otp, setOtp] = useState('');
+
+  // Dummy handlers for UI demonstration
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleOtpChange = (e) => setOtp(e.target.value.replace(/[^0-9]/g, '').slice(0, 6));
+
+  const handleGetOtp = (e) => {
+    e.preventDefault();
+    alert("Simulating OTP request...");
+    setStep('verify-otp'); 
   };
 
-  // --- Handle form submission ---
-  const handleSubmit = (e) => {
+  const handleVerifyAndSignUp = (e) => {
     e.preventDefault();
-    // Front-end validation
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    // Prepare data for the backend, removing the confirmPassword field
-    const dataToSend = {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-    };
-    
-    // In a real app, you would send this dataToSend object to your backend API
-    console.log('Sign-up data to be sent to backend:', dataToSend);
-    alert('Check the console for the sign-up data!');
+    alert('Account created successfully! (Simulated)');
   };
 
   return (
     <div className="signup-page-container">
       <div className="signup-form-wrapper">
-        <div className="signup-form-header">
-          <a href="/" className="brand-logo">
-            <Volume2 size={18} />
-            <span>AudioTech</span>
-          </a>
-          <h1 className="signup-title">Create Your Account</h1>
-          <p className="signup-subtitle">Join the AudioTech family and unlock a world of sound.</p>
-        </div>
+        
+        {/* --- Step 1: Create Your Account --- */}
+        {step === 'details' && (
+          <div className="form-content-wrapper">
+            <a href="/" className="brand-logo centered">
+              <Volume2 size={18} />
+              <span>ZepCart</span>
+            </a>
+            <div className="form-header">
+              <h1 className="form-title">Create Your Account</h1>
+              <p className="form-subtitle">Join us and unlock a world of sound.</p>
+            </div>
+            
+            <form className="details-form" onSubmit={handleGetOtp}>
+              <div className="input-group">
+                <User className="input-icon" size={20} />
+                <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} required />
+              </div>
+              <div className="input-group">
+                <Mail className="input-icon" size={20} />
+                <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+              </div>
+              <div className="input-group">
+                <Lock className="input-icon" size={20} />
+                <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+              </div>
+              
+              {/* This footer now contains the full-width button */}
+              <div className="details-footer">
+                <button type="submit" className="btn-primary-action">
+                  <UserPlus size={18} />
+                  <span>Continue & Get OTP</span>
+                </button>
+              </div>
+            </form>
+            <p className="footer-link">
+              Already have an account? <a href="/login">Sign In</a>
+            </p>
+          </div>
+        )}
 
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <User className="input-icon" size={20} />
-            <input
-              type="text"
-              placeholder="Full Name"
-              name="name" // Matches the schema
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <Mail className="input-icon" size={20} />
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email" // Matches the schema
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <Lock className="input-icon" size={20} />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password" // Matches the schema
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <ShieldCheck className="input-icon" size={20} />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPassword" // For front-end validation only
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        {/* --- Step 2: OTP Verification Form --- */}
+        {step === 'verify-otp' && (
+          <div className="form-content-wrapper">
+            <a href="/" className="brand-logo top-left">
+              <Volume2 size={20} />
+              <span>ZepCart</span>
+            </a>
+            <div className="form-header left-aligned">
+              <h1 className="form-title">Verify Your Email</h1>
+              <p className="form-subtitle">
+                An OTP has been sent to {formData.email || 'your email'}.
+                <br />
+                Please enter it below.
+              </p>
+            </div>
 
-          <div className="form-options">
-            <label className="terms-agreement">
-              <input type="checkbox" required/>
-              <span className="custom-checkbox"></span>
-              <span>I agree to the <a href="/terms" target="_blank">Terms & Conditions</a></span>
-            </label>
+            <form className="otp-form" onSubmit={handleVerifyAndSignUp}>
+              <div className="input-group">
+                <KeyRound className="input-icon" size={20} />
+                <input type="text" placeholder="6-Digit OTP" value={otp} onChange={handleOtpChange} required />
+              </div>
+              {/* This button is also full-width */}
+              <button type="submit" className="btn-primary-action">
+                <ShieldCheck size={18} />
+                <span>Verify & Create Account</span>
+              </button>
+            </form>
+            
+            <div className="otp-footer">
+              <button className="resend-otp-link" onClick={() => alert('Resending OTP...')}>
+                Resend OTP
+              </button>
+              <p className="footer-link">
+                Already have an account? <a href="/login">Sign In</a>
+              </p>
+            </div>
           </div>
-
-          <button type="submit" className="btn-signup">
-            <UserPlus size={18} />
-            Create Account
-          </button>
-        </form>
-
-        <p className="login-link">
-          Already have an account? <a href="/login">Sign In</a>
-        </p>
+        )}
       </div>
     </div>
   );
