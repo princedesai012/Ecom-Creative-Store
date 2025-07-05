@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // Define the Contact (feedback form) schema
 const contactSchema = new mongoose.Schema({
-  name: { type: String, required: true }, // Sender name
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User
 
   email: { type: String, required: true }, // Sender email
 
@@ -13,4 +13,4 @@ const contactSchema = new mongoose.Schema({
 });
 
 // Export the model
-export  default mongoose.model('Contact', contactSchema);
+export default mongoose.model('Contact', contactSchema);

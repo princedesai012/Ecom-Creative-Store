@@ -1,17 +1,32 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { ConnectDB } from './src/database/db.js';
-;
+
+import Authrouter  from "./src/routes/user.route.js";
+import productRouter from './src/routes/product.router.js';
+import OrderRouter from './src/routes/order.routes.js';
+import CartRouter from "./src/routes/cart.routes.js";
+import ContactRouter from './src/routes/contact.router.js';
+
 
 
 dotenv.config({ path: './.env' });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 
 app.get('/', (req, res) => {
     res.status(200).send('Server is running');
 });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/v1/auth', Authrouter);
+app.use('/api/v1/products', productRouter);
+app.use('/api/v1/orders', OrderRouter);
+app.use('/api/v1/cart', CartRouter);
+app.use('/api/v1/contact', ContactRouter);
 
 // Connect to the database
 ConnectDB();

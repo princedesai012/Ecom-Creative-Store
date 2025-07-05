@@ -1,4 +1,4 @@
-import {Product} from "../models/product.model.js";
+import Product from "../models/product.model.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 
 
@@ -12,9 +12,19 @@ try {
         return res.status(400).json({ message: "All fields are required" });
     }
 
-    ImagePath = req.file.path; // Assuming you're using multer for file uploads
-    const imageUrl =  await uploadOnCloudinary(ImagePath); // Function to upload image to Cloudinary
+    if (!req.file) {
+        return res.status(400).json({ message: "No image file uploaded" });
+    }
+
+    const imagePath = req.file.path;
+    console.log("Uploading image at path:", imagePath); // Log the local file path
+
+    const imageUrl = await uploadOnCloudinary(imagePath);
+
+    console.log("Cloudinary upload result:", imageUrl); // Log the result from Cloudinary
+
     if (!imageUrl) {
+        console.error("Image upload failed for path:", imagePath);
         return res.status(500).json({ message: "Image upload failed" });
     }
 
@@ -36,7 +46,7 @@ try {
 }
 catch(error){
     console.error("Error adding product:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 }
 
@@ -181,6 +191,45 @@ export const deleteProductById = async (req, res) => {
     }
 
 
+}
+
+export const addReview = async (req, res) => {
+
+    try {
+        const productId = req.params.id;
+        const { comment, rating } = req.body;
+
+        // Validate required fields
+        if (!comment || !rating) {
+            return res.status(400).json({ message: "Comment and rating are required" });
+        }
+
+        // Find the product by ID
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Add the review
+        product.reviews.push({
+            user: req.user._id, // Assuming user ID is available in req.user
+            comment,
+            rating
+        });
+
+        // Save the updated product
+        const updatedProduct = await product.save();
+
+        res.status(201).json({
+            message: "Review added successfully",
+            product: updatedProduct
+        });
+        
+    } catch (error) {
+        console.error("Error adding review:", error);
+        res.status(500).json({ message: "Internal server error" });
+        
+    }
 }
 
 
