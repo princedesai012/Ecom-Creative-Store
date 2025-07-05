@@ -37,7 +37,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 //generate JWT token for the user
 
 userSchema.methods.genrateAcessToken = function() {
-    return jwt.sign({ id: this._id, isAdmin: this.isAdmin }, process.env.ACCESS_TOKEN_SECRET, {
+    return jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: process.env.ACCESS_TOKEN_EXPIRY
     });
 
@@ -45,7 +45,7 @@ userSchema.methods.genrateAcessToken = function() {
 
 //  genrate refresh token for the user
 userSchema.methods.genrateRefreshToken = function() {
-    return jwt.sign({ id: this._id, isAdmin: this.isAdmin }, process.env.REFRESH_TOKEN_SECRET, {
+    return jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: process.env.REFRESH_TOKEN_EXPIRY
     });
 

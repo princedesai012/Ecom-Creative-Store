@@ -1,43 +1,83 @@
-import {User} from "../models/user.model.js";
+import User from "../models/user.model.js";
+import { sendOtpEmail } from "../utils/sendotp.js";
+import Otp  from "../models/otp.model.js";
 
 
 // Register a new user
-export const registerUser = async (req, res) => {
+export  const registerUser = async (req, res) => {
+
 
     try {
-        const {name, email,password} = req.body;
-        if(!name || !email || !password) {
-            return res.status(400).json({ message: "All fields are required" });
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Name, email, and password are required" });
         }
-        
-        //  Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {     
-            return res.status(400).json({ message: "User already exists" });
-        }
-
-        // Create a new user
-        const newUser = await User.create({
-            name,
-            email,
-            password, 
-            isAdmin: false // Default to non-admin
+        // Check if user already exists
+        const existingUser = await User.findOne({       
+            email
         });
-     res.status(201).json({
-            message: "User registered successfully",
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists" });
+        }
+           
+        // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-     })
+    // Save OTP in DB with expiry of 10 minutes
+    await Otp.create({
+      email,
+      otp,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+    });
 
-          
+    // Send OTP to email
+    await sendOtpEmail(email, otp);
 
-
+    return res.status(200).json({
+      message: 'OTP sent to email. Please verify to complete registration.',
+    });
         
     } catch (error) {
         console.error("Error registering user:", error);
         res.status(500).json({ message: "Internal server error" });
         
     }
+  
 }
+// verify OTP and complete registration
+
+export const verifyOtpAndCompleteRegistration = async (req, res) => {
+    try {
+    const { name, email, password, otp } = req.body;
+
+    // Find OTP record
+    const otpRecord = await Otp.findOne({ email, otp });
+    if (!otpRecord) {
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    }
+
+    if (otpRecord.expiresAt < new Date()) {
+      return res.status(400).json({ message: 'OTP has expired' });
+    }
+
+  
+    // Create the user
+    await User.create({
+      name,
+      email,
+      password,
+      isAdmin: false,
+    });
+
+    // Remove used OTP
+    await Otp.deleteOne({ _id: otpRecord._id });
+
+    return res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Error verifying OTP:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 // Login a user
 export const loginUser = async (req, res) => {
@@ -186,7 +226,7 @@ export const updateUserPassword = async (req, res) => {
         
     } catch (error) {
         console.error("Error updating user password:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error : error.message });
         
     }
 }
