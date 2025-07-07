@@ -1,30 +1,20 @@
-import React, { useEffect, useRef,useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { User, Search, ShoppingCart, Volume2, LogOut } from 'lucide-react';
-import './LandingPage.css';
+import { User, ShoppingCart, Volume2, LogOut } from 'lucide-react';
+import '../css/LandingPage.css';
 import { logout, fetchUserProfile } from "../store/authslice";
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  const checkedRef = useRef(false);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (checkedRef.current) return;
-    checkedRef.current = true;
-
-const checkAuth = async () => {
-      try {
-         dispatch(fetchUserProfile());
-        setIsAuthenticated(true);
-      } catch (err) {
-        setIsAuthenticated(false);
-      }
-    };
-    checkAuth();
+    if(isAuthenticated){
+    dispatch(fetchUserProfile());
+    }
   }, []);
 
   const handleLogout = () => {
@@ -57,7 +47,7 @@ const checkAuth = async () => {
               <User size={20} />
             </a>
           )}
-         
+
           <button className="nav-icon-btn cart-btn">
             <ShoppingCart size={20} />
           </button>

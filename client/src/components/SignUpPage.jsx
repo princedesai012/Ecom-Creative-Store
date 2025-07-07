@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Volume2, User, Mail, Lock, ShieldCheck, UserPlus, KeyRound } from 'lucide-react';
-import './SignUpPage.css'; // This will be the new, themed CSS file
+import '../css/SignUpPage.css'; // This will be the new, themed CSS file
 import { registerUser,verifyOtp } from '../api/auth.api';
 
 const SignUpPage = () => {
