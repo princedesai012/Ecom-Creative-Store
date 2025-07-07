@@ -1,71 +1,44 @@
-import { API } from '../api/axios';
-
-export const createOrder = async (orderData) => {
-  try {
-    const response = await API.post('/orders', orderData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating order:", error.response?.data || error.message);
-    throw error;
-  }
+import { API } from "./api" 
+// ✅ Add a new product (Admin only)
+export const addProduct = async (formData) => {
+  const res = await API.post('/products/add', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return res.data;
 };
 
-export const getAllOrders = async () => {
-  try {
-    const response = await API.get('/orders');
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching orders:", error.response?.data || error.message);
-    throw error;
-  }
+// ✅ Get all products with optional query params
+export const getAllProducts = async (query = '') => {
+  const res = await API.get(`/products${query}`);
+  return res.data;
 };
 
-export const getOrderById = async (id) => {
-  try {
-    const response = await API.get(`/orders/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching order:", error.response?.data || error.message);
-    throw error;
-  }
+// ✅ Get product by ID
+export const getProductById = async (id) => {
+  const res = await API.get(`/products/${id}`);
+  return res.data;
 };
 
-export const updateOrderStatus = async (id, statusData) => {
-  try {
-    const response = await API.put(`/orders/${id}`, statusData);
-    return response.data;
-  } catch (error) {
-    console.error("Error updating order:", error.response?.data || error.message);
-    throw error;
-  }
+// ✅ Update a product (Admin only)
+export const updateProductById = async (id, formData) => {
+  const res = await API.put(`/products/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return res.data;
 };
 
-export const deleteOrderById = async (id) => {
-  try {
-    const response = await API.delete(`/orders/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error deleting order:", error.response?.data || error.message);
-    throw error;
-  }
+// ✅ Delete a product (Admin only)
+export const deleteProductById = async (id) => {
+  const res = await API.delete(`/products/${id}`);
+  return res.data;
 };
 
-export const getOrdersByUserId = async (userId) => {
-  try {
-    const response = await API.get(`/orders/user/${userId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user orders:", error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const cancelOrder = async (id) => {
-  try {
-    const response = await API.post(`/orders/cancel/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error cancelling order:", error.response?.data || error.message);
-    throw error;
-  }
+// ✅ Add a review (User only)
+export const addReviewToProduct = async (productId, reviewData) => {
+  const res = await API.post(`/products/${productId}/review`, reviewData);
+  return res.data;
 };
