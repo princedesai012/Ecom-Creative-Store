@@ -9,7 +9,7 @@ import {
   Shield,
   Linkedin,
   Instagram,
-  Mail,
+  
   Youtube,
   Facebook,
   Star,
@@ -44,7 +44,9 @@ const LandingPage = () => {
           </a>
           <div className="nav-links">
             <a href="#home" className="nav-link active">Home</a>
-            <a href="#introduction" className="nav-link">About ZepCart</a>
+            
+           
+            <a href='#' className='nav-link'> products</a>
             <a href="#help" className="nav-link">Help Centre</a>
           </div>
           <div className="nav-icons">
