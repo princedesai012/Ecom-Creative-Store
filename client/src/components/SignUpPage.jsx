@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Volume2, User, Mail, Lock, ShieldCheck, UserPlus, KeyRound } from 'lucide-react';
 import './SignUpPage.css'; // This will be the new, themed CSS file
+import { registerUser,verifyOtp } from '../api/auth.api';
 
 const SignUpPage = () => {
   // State to manage which step of the form is active
@@ -24,13 +25,33 @@ const SignUpPage = () => {
 
   const handleGetOtp = (e) => {
     e.preventDefault();
-    alert("Simulating OTP request...");
-    setStep('verify-otp'); 
+    // Simulate OTP generation and sending
+    registerUser(formData)
+      .then(response => {
+        console.log('OTP sent successfully:', response);
+        setStep('verify-otp'); // Move to OTP verification step
+      })
+      .catch(error => {
+        console.error('Error sending OTP:', error);
+        alert('Failed to send OTP. Please try again.');
+      });
   };
 
   const handleVerifyAndSignUp = (e) => {
     e.preventDefault();
-    alert('Account created successfully! (Simulated)');
+
+    // Simulate OTP verification and account creation
+    verifyOtp({ ...formData, otp })
+      .then(response => {
+        console.log('OTP verified successfully:', response);
+        alert('Account created successfully!');
+        // Redirect to login or home page
+        window.location.href = '/login'; // Change this as needed
+      })
+      .catch(error => {
+        console.error('Error verifying OTP:', error);
+        alert('Invalid OTP. Please try again.');
+      });
   };
 
   return (

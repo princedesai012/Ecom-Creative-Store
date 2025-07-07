@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react'; // Import useState
 import { Volume2, Mail, Lock, LogIn } from 'lucide-react';
+import { login } from '../store/authslice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
 const GoogleIcon = () => (
@@ -12,6 +15,7 @@ const GoogleIcon = () => (
       <path d="M12.27 5.58C13.72 5.58 15.03 6.08 16.04 7.03L19.55 3.55C17.73 1.83 15.22 0.999999 12.27 0.999999C7.84 0.999999 4.05 3.32 2.3 6.74L6.25 9.93C7.15 7.37 9.51 5.58 12.27 5.58Z" fill="#EA4335"/>
     </svg>
 );
+   
 
 const LoginPage = () => {
   // --- State Management for Login Form ---
@@ -19,7 +23,8 @@ const LoginPage = () => {
     email: '',
     password: '',
   });
-
+ const dispatch = useDispatch();
+    const navigate = useNavigate();
   // --- Handle input changes ---
   const handleChange = (e) => {
     setFormData({
@@ -31,9 +36,20 @@ const LoginPage = () => {
   // --- Handle form submission ---
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, you would send this formData to your backend API
-    console.log('Login data to be sent to backend:', formData);
-    alert('Check the console for the login data!');
+    // Dispatch the login action with form data
+    dispatch(login(formData))
+      .then((response) => {
+        // Handle successful login
+        console.log('Login successful:', response);
+        navigate('/'); // Redirect to home page or dashboard
+      })
+      .catch((error) => {
+        // Handle login error
+        console.error('Login failed:', error);
+        alert('Login failed. Please check your credentials.');
+      });
+
+
   };
 
   return (
@@ -91,10 +107,7 @@ const LoginPage = () => {
             <span>OR CONTINUE WITH</span>
         </div>
         
-        <button className="btn-social">
-            <GoogleIcon />
-            <span>Sign in with Google</span>
-        </button>
+      
 
         <p className="signup-link">
           Don't have an account? <a href="/signup">Sign Up for free</a>

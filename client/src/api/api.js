@@ -6,7 +6,7 @@ import axios from 'axios';
 });
 
 // Interceptor to add token to headers
-api.interceptors.request.use(
+API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         if (token) {
