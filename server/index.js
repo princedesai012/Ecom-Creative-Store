@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { ConnectDB } from './src/database/db.js';
+import cors from 'cors';
 
 import Authrouter  from "./src/routes/user.route.js";
 import productRouter from './src/routes/product.router.js';
@@ -14,6 +15,11 @@ dotenv.config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT ;
+app.use(cors({
+  origin: '*', 
+  credentials: true 
+}));
+
 
 app.get('/', (req, res) => {
     res.status(200).send('Server is running');
