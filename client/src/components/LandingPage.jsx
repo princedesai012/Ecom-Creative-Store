@@ -9,7 +9,7 @@ import {
   FileText,
   Truck
 } from 'lucide-react';
-import './LandingPage.css';
+import "../css/LandingPage.css"; 
 
 const imageUrls = {
   abstractTech: 'https://plus.unsplash.com/premium_photo-1678099940967-73fe30680949?w=500&auto=format&fit=crop&q=60',

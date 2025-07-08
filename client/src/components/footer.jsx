@@ -1,6 +1,6 @@
 import React from 'react';
 import { Volume2, Linkedin, Instagram, Youtube, Facebook } from 'lucide-react';
-import './LandingPage.css';
+import '../css/LandingPage.css';
 
 const Footer = () => {
   return (

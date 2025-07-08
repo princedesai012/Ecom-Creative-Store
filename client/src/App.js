@@ -8,7 +8,12 @@ import SignUpPage from './components/SignUpPage';
 import ProductsPage from './components/ProductPage';
 import Header from "./components/header";
 import Footer from "./components/footer";
+import AdminPanel from './admin/AdminPanel';
+
+import AdminLogin from './admin/AdminLogin';
 import ProductDetailPage from './components/ProductDetailPage'; 
+import AddProduct from './admin/AddProduct';
+
 
 function App() {
   return (
@@ -20,8 +25,14 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/products" element={<ProductsPage />} />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path='/admin/panel' element={<AdminPanel/>}/>
+          <Route path='/admin/add-product' element={<AddProduct/>}/>
+        
           <Route path="/product/:id" element={<ProductDetailPage />} />
         </Routes>
+
 
         <Footer /> {/* Common Footer for all routes */}
       </div>
