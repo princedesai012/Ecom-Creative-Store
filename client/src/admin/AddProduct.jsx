@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { addProduct } from "../api/products.api";
-import "../css/LoginPage.css"; // Using the same theme
+import "../css/AddProduct.css";
 
 function AddProduct() {
   const [productData, setProductData] = useState({
     name: "",
+    brand: "",
     price: "",
+    stock: "",
     description: "",
     category: "",
-    image: null,
+    imageurl: null,
   });
+
+  const fileRef = useRef();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setProductData((prev) => ({
       ...prev,
-      [name]: name === "image" ? files[0] : value,
+      [name]: name === "imageurl" ? files[0] : value,
     }));
   };
 
@@ -28,33 +32,34 @@ function AddProduct() {
 
     try {
       await addProduct(formData);
-      alert("Product added successfully!");
+      alert("✅ Product added successfully!");
+      console.log("Product added:", productData);
+
+      // Reset form and file input
       setProductData({
         name: "",
+        brand: "",
         price: "",
+        stock: "",
         description: "",
         category: "",
-        image: null,
+        imageurl: null,
       });
+      if (fileRef.current) fileRef.current.value = null;
     } catch (error) {
-      alert("Failed to add product!");
+      alert("❌ Failed to add product!");
       console.error(error);
     }
   };
 
   return (
-    <div className="login-page-container">
-      <div className="login-form-wrapper">
-        <div className="login-form-header">
-          <div className="brand-logo">
-            <span className="brand-icon">🛒</span>
-            Add Product
-          </div>
-          <h2 className="login-title">New Product Entry</h2>
-          <p className="login-subtitle">Fill in the details below</p>
-        </div>
+    <div className="add-product-container">
+      <div className="add-product-card">
+        <h2>New Product Entry</h2>
+        <p>Fill in the product details below</p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="add-product-form">
+          {/* Product Name */}
           <div className="input-group">
             <input
               type="text"
@@ -66,6 +71,19 @@ function AddProduct() {
             />
           </div>
 
+          {/* Brand */}
+          <div className="input-group">
+            <input
+              type="text"
+              name="brand"
+              placeholder="Brand"
+              value={productData.brand}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Price */}
           <div className="input-group">
             <input
               type="number"
@@ -77,6 +95,19 @@ function AddProduct() {
             />
           </div>
 
+          {/* Stock */}
+          <div className="input-group">
+            <input
+              type="number"
+              name="stock"
+              placeholder="Stock Quantity"
+              value={productData.stock}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Description */}
           <div className="input-group">
             <textarea
               name="description"
@@ -84,48 +115,41 @@ function AddProduct() {
               value={productData.description}
               onChange={handleChange}
               rows={4}
-              style={{
-                width: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.2)",
-                border: "1px solid var(--border-color)",
-                borderRadius: "12px",
-                padding: "1rem",
-                color: "var(--text-light)",
-                fontSize: "1rem",
-              }}
               required
             />
           </div>
 
+          {/* Category */}
           <div className="input-group">
-            <input
-              type="text"
+            <select
               name="category"
-              placeholder="Category"
               value={productData.category}
               onChange={handleChange}
               required
-            />
+              className="category-select"
+            >
+              <option value="" disabled>Select Category</option>
+              <option value="phone">Phone</option>
+              <option value="laptop">Laptop</option>
+              <option value="tablet">Tablet</option>
+              <option value="accessory">Accessory</option>
+            </select>
           </div>
 
+          {/* Image Upload */}
           <div className="input-group">
             <input
               type="file"
-              name="image"
+              name="imageurl"
               accept="image/*"
               onChange={handleChange}
+              ref={fileRef}
               required
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                color: "var(--text-muted)",
-              }}
             />
           </div>
 
-          <button type="submit" className="btn-login">
-            Submit Product
-          </button>
+          {/* Submit */}
+          <button type="submit" className="submit-btn">Submit Product</button>
         </form>
       </div>
     </div>

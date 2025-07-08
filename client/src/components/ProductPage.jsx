@@ -1,10 +1,8 @@
-// src/components/ProductsPage.jsx
-
 import React, { useEffect, useState } from 'react';
-import { Search, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Tag, ChevronLeft, ChevronRight,Eye } from 'lucide-react';
 import { getAllProducts } from '../api/products.api';
-import '../css/ProductPage.css'; // Make sure this path is correct
-import ProductSkeleton from "./ProductDetailPage.jsx"
+import '../css/ProductPage.css';
+import ProductCardSkeleton from "./ProductDetailPage"
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -66,8 +64,7 @@ const ProductsPage = () => {
             }}
             className="filter-select"
           >
-           <option value="">All Categories</option>
-           
+            <option value="">All Categories</option>
             <option value="phone">Phone</option>
             <option value="laptop">Laptop</option>
             <option value="tablet">Tablet</option>
@@ -77,22 +74,26 @@ const ProductsPage = () => {
       </div>
 
       {error && <p className="status-msg error">{error}</p>}
+      {!loading && products.length === 0 && !error && (
+        <p className="status-msg">No products found.</p>
+      )}
 
       {/* Product Grid */}
       <div className="product-grid">
         {loading
-          ? Array.from({ length: 6 }).map((_, index) => <ProductSkeleton key={index} />)
+          ? Array.from({ length: 6 }).map((_, index) => <ProductCardSkeleton key={index} />)
           : products.map((product) => (
               <div key={product._id} className="product-card">
                 <div className="product-image-container">
                   <img src={product.imageUrl} alt={product.name} className="product-img" />
                 </div>
                 <div className="product-info">
+                  <span className="product-category-tag">{product.category}</span>
                   <h2 className="product-name">{product.name}</h2>
                   <p className="product-desc">{product.description}</p>
                   <div className="product-footer">
                     <p className="product-price">₹{product.price.toLocaleString('en-IN')}</p>
-                    <a href={`/product/${product._id}`} className="btn-view-product">View</a>
+                    <a href={`/product/${product._id}`} className="btn-view-product"><Eye size={18} /></a>
                   </div>
                 </div>
               </div>

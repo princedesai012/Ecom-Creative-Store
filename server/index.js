@@ -8,15 +8,18 @@ import productRouter from './src/routes/product.router.js';
 import OrderRouter from './src/routes/order.routes.js';
 import CartRouter from "./src/routes/cart.routes.js";
 import ContactRouter from './src/routes/contact.router.js';
+import cookieParser from 'cookie-parser';
 
 
 
 dotenv.config({ path: './.env' });
 
 const app = express();
+
 const PORT = process.env.PORT ;
 app.use(cors({
-  origin: '*', 
+  origin: 'http://localhost:3000', // Adjust this to your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true 
 }));
 
@@ -27,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 app.use('/api/v1/auth', Authrouter);
 app.use('/api/v1/products', productRouter);
