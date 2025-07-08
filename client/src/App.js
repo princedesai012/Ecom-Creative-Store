@@ -8,7 +8,10 @@ import SignUpPage from './components/SignUpPage';
 import ProductsPage from './components/ProductPage';
 import Header from "./components/header";
 import Footer from "./components/footer";
+
 import AdminLogin from './admin/AdminLogin';
+import ProductDetailPage from './components/ProductDetailPage'; 
+
 
 function App() {
   return (
@@ -20,8 +23,12 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/products" element={<ProductsPage />} />
+
           <Route path="/admin/login" element={<AdminLogin />} />
-          </Routes>
+        
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+        </Routes>
+
 
         <Footer /> {/* Common Footer for all routes */}
       </div>
