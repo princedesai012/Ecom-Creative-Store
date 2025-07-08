@@ -18,7 +18,7 @@ const AdminLogin = () => {
       .unwrap()
       .then((response) => {
         if (response.user?.isAdmin) {
-          navigate("/");
+          navigate("/admin/panel");
         } else {
           alert("Access denied. You are not an admin.");
         }

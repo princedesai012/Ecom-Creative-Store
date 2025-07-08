@@ -5,12 +5,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
-import ProductsPage from './components/';
+import ProductsPage from './components/ProductPage';
 import Header from "./components/header";
 import Footer from "./components/footer";
+import AdminPanel from './admin/AdminPanel';
 
 import AdminLogin from './admin/AdminLogin';
 import ProductDetailPage from './components/ProductDetailPage'; 
+import AddProduct from './admin/AddProduct';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/products" element={<ProductsPage />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path='/admin/panel' element={<AdminPanel/>}/>
+          <Route path='/admin/add-product' element={<AddProduct/>}/>
         
           <Route path="/product/:id" element={<ProductDetailPage />} />
         </Routes>

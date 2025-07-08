@@ -1,3 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+/* --- CSS VARIABLES & GLOBAL STYLES --- */
+:root {
+  --bg-deep-purple: #0c0a1a;
+  --primary-glow: #7e22ce;
+  --secondary-glow: #be185d;
+  --accent-gold: #fbbf24;
+  --text-light: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-deep-purple);
+  color: var(--text-light);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+
+
+
+
 .admin-login-container {
   max-width: 400px;
   margin: 100px auto;
