@@ -13,7 +13,7 @@ import AdminLogin from './admin/AdminLogin';
 import ProductDetailPage from './components/ProductDetailPage';
 import AddProduct from './admin/AddProduct';
 import RequireAuth from './components/CheckAuth';
-
+import FeedbackModal from './components/FeedbackModal';
 function App() {
   return (
     <Router>
@@ -25,6 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path='/feedback' element={ <FeedbackModal />} />
 
           {/* Public Admin Login */}
           <Route path="/admin/login" element={<AdminLogin />} />

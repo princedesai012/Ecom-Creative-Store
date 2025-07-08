@@ -1,0 +1,163 @@
+/* src/components/FeedbackModal.css */
+
+:root {
+    --bg-deep-purple: #0c0a1a;
+    --primary-glow: #7e22ce;
+    --secondary-glow: #be185d;
+    --accent-gold: #fbbf24;
+    --text-light: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+  }
+  
+  .feedback-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(12, 10, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fade-in 0.3s ease-out forwards;
+  }
+  
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+  
+  .feedback-modal-content {
+    max-width: 500px;
+    width: 90%;
+    background: var(--form-bg, rgba(28, 25, 47, 0.5));
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    position: relative;
+    transform: scale(0.95);
+    opacity: 0;
+    animation: modal-pop-in 0.4s 0.1s ease-out forwards;
+  }
+  
+  @keyframes modal-pop-in {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .close-modal-btn:hover {
+    background-color: var(--secondary-glow);
+    border-color: var(--secondary-glow);
+    color: white;
+    transform: rotate(90deg);
+  }
+  
+  .feedback-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .feedback-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+  }
+  
+  .feedback-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+  
+  .star-rating-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .star-icon {
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .star-icon:hover {
+    transform: scale(1.15);
+  }
+  
+  .star-icon.filled {
+    color: var(--accent-gold);
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+  }
+  
+  .comment-group {
+    margin-bottom: 2rem;
+  }
+  
+  .comment-group textarea {
+    width: 100%;
+    background-color: var(--input-bg, rgba(0, 0, 0, 0.2));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    resize: vertical;
+    min-height: 100px;
+    transition: all 0.3s ease;
+  }
+  
+  .comment-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 15px rgba(126, 34, 206, 0.5);
+  }
+  
+  .btn-submit-feedback {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: none;
+    color: white;
+    background: linear-gradient(90deg, var(--button-grad-start), var(--button-grad-end));
+    box-shadow: 0 8px 25px rgba(190, 24, 93, 0.3);
+  }
+  
+  .btn-submit-feedback:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(190, 24, 93, 0.4);
+  }

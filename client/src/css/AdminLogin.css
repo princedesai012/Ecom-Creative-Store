@@ -100,3 +100,48 @@ body {
   text-align: center;
   font-size: 14px;
 }
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-login-container {
+    margin: 60px 20px;
+    padding: 30px 20px;
+  }
+
+  .admin-login-container h2 {
+    font-size: 24px;
+  }
+
+  .admin-login-form input,
+  .admin-login-form button {
+    font-size: 15px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login-container {
+    margin: 40px 15px;
+    padding: 25px 15px;
+    border-radius: 10px;
+  }
+
+  .admin-login-container h2 {
+    font-size: 20px;
+  }
+
+  .admin-login-form {
+    gap: 12px;
+  }
+
+  .admin-login-form input,
+  .admin-login-form button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .error-message {
+    font-size: 13px;
+  }
+}
