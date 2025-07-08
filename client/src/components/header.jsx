@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
+  
   useEffect(() => {
-    if(isAuthenticated){
     dispatch(fetchUserProfile());
-    }
-  }, []);
+    
+    
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
@@ -39,9 +39,12 @@ const Header = () => {
 
         <div className="nav-icons">
           {isAuthenticated ? (
-            <button className="nav-icon-btn" onClick={handleLogout}>
-              <LogOut size={20} />
-            </button>
+            <>
+             
+              <button className="nav-icon-btn" onClick={handleLogout}>
+                <LogOut size={20} />
+              </button>
+            </>
           ) : (
             <a href="/login" className="nav-icon-btn">
               <User size={20} />

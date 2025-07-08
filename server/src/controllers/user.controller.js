@@ -107,7 +107,8 @@ export const loginUser = async (req, res) => {
      const loggedInUser = await User.findById(user._id).select('-password -refreshToken');
      const cookieOptions = {
       httpOnly: true,  
-      secure: true, 
+      secure: "development",
+      samesite : 'None', // Required for cross-site cookies
      }
 
      res.cookie('accessToken', accessToken, cookieOptions);

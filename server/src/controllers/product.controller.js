@@ -124,7 +124,7 @@ export const getProductById = async (req, res) => {
 // update product by id
 export const updateProductById = async (req, res) => {
     try {
-        const productId = req.params;
+        const productId = req.params.id;
         const { name, description, price, category, brand, stock } = req.body;
 
         
@@ -173,7 +173,7 @@ export const updateProductById = async (req, res) => {
 
 export const deleteProductById = async (req, res) => {
     try {
-        const productId = req.params;
+        const productId = req.params.id;
         const product = await Product.findByIdAndDelete(productId);
         if (!product) {
             return res.status(404).json({ message: "Product not found" });

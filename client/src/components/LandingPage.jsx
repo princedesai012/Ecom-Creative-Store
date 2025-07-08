@@ -35,7 +35,7 @@ const LandingPage = () => {
               </p>
 
               <div className="hero-buttons">
-                <button className="btn btn-primary">
+                <button className="btn btn-primary" onClick={() => window.location.href = '/products'}>
                   <ShoppingCart size={18} />
                   Start Shopping with us
                 </button>

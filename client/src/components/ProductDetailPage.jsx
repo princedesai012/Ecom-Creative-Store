@@ -38,7 +38,7 @@ const ProductDetailPage = () => {
       try {
         const data = await getProductById(id);
         console.log('Fetched product:', data);
-        setProduct(data.product); // ✅ Fix here
+        setProduct(data.product);
       } catch (err) {
         setError('Failed to fetch product details.');
         console.error('Error fetching product:', err);
@@ -72,6 +72,21 @@ const ProductDetailPage = () => {
         <div className="product-details-content">
           <span className="product-category-tag">{product.category}</span>
           <h1 className="product-detail-name">{product.name}</h1>
+
+          <div className="product-brand-stock">
+            <span className="brand">Brand: <strong>{product.brand}</strong></span>
+            
+          </div>
+
+          <div className="reviews-preview">
+            <div className="stars">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="star-icon" />
+              ))}
+            </div>
+            <span className="review-text">4.8 (150 reviews)</span>
+          </div>
+
           <p className="product-detail-description">{product.description}</p>
 
           <div className="price-section">
