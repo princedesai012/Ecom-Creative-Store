@@ -11,24 +11,18 @@ import AdminLogin from './admin/AdminLogin';
 import ProductDetailPage from './components/ProductDetailPage';
 import AddProduct from './admin/AddProduct';
 import RequireAuth from './components/CheckAuth';
-import Cart from './components/cart'; 
-import { CartProvider } from './context/CartContext'; 
 
 function App() {
   return (
     <Router>
-      <CartProvider> {/*  Wrap your app inside CartProvider */}
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-
-            {/*  Cart Page Route */}
-            <Route path="/cart" element={<Cart />} />
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
 
             {/* Public Admin Login */}
             <Route path="/admin/login" element={<AdminLogin />} />
