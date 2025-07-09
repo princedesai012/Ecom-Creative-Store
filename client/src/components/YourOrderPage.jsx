@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/YourOrderPage.css";
-import { getAllOrders, cancelOrder } from "../api/order.api";
+import { getOrdersByUserId, cancelOrder } from "../api/order.api";
 
 const YourOrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -9,8 +9,9 @@ const YourOrderPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await getAllOrders();
+        const response = await getOrdersByUserId();
         setOrders(response.data.orders || []);
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {

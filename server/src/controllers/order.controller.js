@@ -186,7 +186,7 @@ try {
 
 } catch (error) {
     console.error("Error fetching orders by user ID:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error :  error.message});
 
 }
 
@@ -221,6 +221,6 @@ export const cancelOrder = async (req, res) => {
         return res.status(200).json({ message: "Order cancelled successfully", order });
     } catch (error) {
         console.error("Error cancelling order:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Internal server error" , error : error.message });
     }
 };
