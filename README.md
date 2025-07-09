@@ -1,5 +1,4 @@
 ZEPCART
-
 A full-stack web application for selling electronic products, featuring a modern responsive user interface, secure authentication, and robust backend APIs.
 
 FEATURES:
@@ -25,7 +24,7 @@ Prerequisites
  Node.js (v16+)
  MongoDB (local or Atlas)
 
-Installation
+Installation Steps
 
 1.Clone the repository:      
       git clone <repo-url>
@@ -41,8 +40,6 @@ Installation
       JWT secret keys
       Cloudinary credentials
       OTP service credentials
-
-
 5.Run the application:
   -For client 
       cd client
