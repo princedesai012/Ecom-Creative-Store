@@ -6,11 +6,59 @@ const YourOrderPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // --- DUMMY DATA ---
+  const dummyOrders = [
+    {
+      _id: "665b1c4e9f1a2b3c4d5e6f7g",
+      createdAt: "2024-06-01T10:30:00.000Z",
+      status: "Delivered",
+      total: 14998,
+      items: [
+        { productId: "prod1", name: "AuraMax Headphones", quantity: 1 },
+        { productId: "prod2", name: "NanoBuds Pro", quantity: 1 },
+      ],
+    },
+    {
+      _id: "665b1c5a9f1a2b3c4d5e6f7h",
+      createdAt: "2024-05-28T15:00:00.000Z",
+      status: "Pending",
+      total: 7999,
+      items: [
+        { productId: "prod3", name: "SonicSphere 360", quantity: 1 },
+      ],
+    },
+    {
+      _id: "665b1c6f9f1a2b3c4d5e6f7i",
+      createdAt: "2024-05-25T09:15:00.000Z",
+      status: "Cancelled",
+      total: 12999,
+      items: [
+        { productId: "prod4", name: "Ember Gaming Headset", quantity: 1 },
+      ],
+    },
+    {
+        _id: "665b1c8a9f1a2b3c4d5e6f7j",
+        createdAt: "2024-05-20T18:45:00.000Z",
+        status: "Delivered",
+        total: 15999,
+        items: [
+          { productId: "prod5", name: "Nebula Over-Ear", quantity: 1 },
+        ],
+    },
+  ];
+
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
       try {
-        const response = await getAllOrders();
-        setOrders(response.data.orders || []);
+        // --- Simulate an API call with a delay ---
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setOrders(dummyOrders);
+        
+        // --- This would be your real API call ---
+        // const response = await getAllOrders();
+        // setOrders(response.data.orders || []);
+
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -21,16 +69,16 @@ const YourOrderPage = () => {
   }, []);
 
   const handleCancel = async (orderId) => {
-    try {
-      await cancelOrder(orderId);
-      setOrders((prev) =>
-        prev.map((order) =>
-          order._id === orderId ? { ...order, status: "Cancelled" } : order
-        )
-      );
-    } catch (error) {
-      console.error("Error cancelling order:", error);
-    }
+    // In a real app, you would call the API first
+    // await cancelOrder(orderId); 
+    
+    // For now, we just update the state
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === orderId ? { ...order, status: "Cancelled" } : order
+      )
+    );
+    console.log(`Order ${orderId} cancelled (frontend only).`);
   };
 
   const getStatusClass = (status) => {
@@ -46,7 +94,14 @@ const YourOrderPage = () => {
     }
   };
 
-  if (loading) return <div className="orders-loading">Loading orders...</div>;
+  if (loading) {
+    return (
+        <div className="your-orders-page">
+            <h2 className="orders-title">📦 Your Orders</h2>
+            <div className="orders-loading">Loading your order history...</div>
+        </div>
+    );
+  }
 
   return (
     <div className="your-orders-page">
@@ -68,19 +123,21 @@ const YourOrderPage = () => {
               </div>
 
               <div className="order-body">
-                <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(order.createdAt).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Total:</strong> ₹{order.total}
-                </p>
+                <div>
+                    <p>
+                        <strong>Date:</strong>{" "}
+                        {new Date(order.createdAt).toLocaleDateString()}
+                    </p>
+                    <p>
+                        <strong>Total:</strong> ₹{order.total.toLocaleString('en-IN')}
+                    </p>
+                </div>
                 <div className="order-items">
                   <strong>Items:</strong>
                   <ul>
-                    {order.items.map((item) => (
-                      <li key={item.productId}>
-                        {item.name} × {item.quantity}
+                    {order.items.map((item, index) => (
+                      <li key={`${item.productId}-${index}`}>
+                        {item.name}  ×  {item.quantity}
                       </li>
                     ))}
                   </ul>
