@@ -52,7 +52,7 @@ export const deleteOrderById = async (id) => {
 
 export const getOrdersByUserId = async () => {
   try {
-    const response = await API.get(`/orders/user`);
+    const response = await API.get(`/orders/u`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user orders:", error.response?.data || error.message);
