@@ -1,8 +1,49 @@
-import React from "react";
-import { useCart } from "../context/CartContext";
+import React, { useEffect, useState } from "react";
+import { getCartItems, removeCartItem, clearCart } from "../api/cart.api";
+import "../css/Cart.css";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, clearCart } = useCart();
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await getCartItems();
+        setCartItems(response.items);
+        console.log("Cart items fetched:", response.items);
+      } catch (err) {
+        console.error("Failed to fetch cart:", err);
+        setError("Failed to load cart items.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCart();
+  }, []);
+
+  const handleRemove = async (productId) => {
+    try {
+      await removeCartItem(productId);
+      setCartItems((prev) => prev.filter((item) => item.product._id !== productId));
+    } catch (err) {
+      console.error("Error removing item:", err);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart();
+      setCartItems([]);
+    } catch (err) {
+      console.error("Error clearing cart:", err);
+    }
+  };
 
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
@@ -10,32 +51,37 @@ const Cart = () => {
       return;
     }
 
-    // Future: send cartItems to backend API to place order
-    console.log("Order placed:", cartItems);
-
-    alert("Order placed successfully!");
-    clearCart();
+     navigate("/place-order", { state: { cartItems } });
   };
+
+  if (loading) return <p className="loader">Loading cart...</p>;
+  if (error) return <p className="error">{error}</p>;
 
   return (
     <div className="cart-page">
-      <h1>Your Cart</h1>
+      <h1 className="cart-title">🛒 Your Shopping Cart</h1>
       {cartItems.length === 0 ? (
-        <p>Cart is empty</p>
+        <p className="empty-text">Your cart is currently empty.</p>
       ) : (
         <>
-          <ul>
-            {cartItems.map(item => (
-              <li key={item.id} style={{ display: "flex", gap: "1rem", alignItems: "center", marginBottom: "1rem" }}>
-                <img src={item.product.imageUrl} alt={item.product.name} width="50" />
-                <span>{item.product.name}</span>
-                <span>Qty: {item.quantity}</span>
-                <span>Price: ₹{item.product.price * item.quantity}</span>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              </li>
+          <div className="cart-list">
+            {cartItems.map((item) => (
+              <div className="cart-item" key={item.product._id}>
+                <img src={item.product.imageUrl} alt={item.product.name} />
+                <div className="item-details">
+                  <h3>{item.product.name}</h3>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>₹{item.product.price * item.quantity}</p>
+                </div>
+                <button className="remove-btn" onClick={() => handleRemove(item.product._id)}>✖</button>
+              </div>
             ))}
-          </ul>
-          <button onClick={handlePlaceOrder}>Place Order</button>
+          </div>
+
+          <div className="cart-actions">
+            <button className="place-btn" onClick={handlePlaceOrder}>Place Order</button>
+            <button className="clear-btn" onClick={handleClearCart}>Clear Cart</button>
+          </div>
         </>
       )}
     </div>
