@@ -111,7 +111,7 @@ body {
 .nav-icon-btn {
   background: transparent;
   border: 1px solid var(--border-color);
-  color: var(--text-muted);
+  color: white;
   width: 38px;
   height: 38px;
   border-radius: 50%;

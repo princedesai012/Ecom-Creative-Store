@@ -1,0 +1,136 @@
+/* Cart.css */
+
+.cart-page {
+  min-height: 100vh;
+  padding: 6rem 1.5rem 2rem;
+  background: linear-gradient(120deg, #1e1b2e, #2a0f36);
+  color: #f3f4f6;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-title {
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #fbbf24;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.empty-text {
+  font-size: 1.3rem;
+  color: #a1a1aa;
+  margin-top: 2rem;
+}
+
+.cart-list {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 6px 24px rgba(126, 34, 206, 0.2);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(126, 34, 206, 0.4);
+}
+
+.cart-item img {
+  width: 70px;
+  height: 70px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+  text-align: left;
+}
+
+.item-details h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.item-details p {
+  margin: 0.2rem 0;
+  color: #d1d5db;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: #f87171;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.remove-btn:hover {
+  color: #ef4444;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.place-btn, .clear-btn {
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.place-btn {
+  background: linear-gradient(90deg, #7e22ce, #be185d);
+  color: #fff;
+}
+
+.place-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(190, 24, 93, 0.3);
+}
+
+.clear-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f3f4f6;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.loader {
+  color: #fbbf24;
+  font-size: 1.2rem;
+  margin-top: 4rem;
+}
+
+.error {
+  color: #f87171;
+  font-size: 1.2rem;
+  margin-top: 4rem;
+}

@@ -44,7 +44,7 @@ const LoginPage = () => {
 
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="input-group">
-            <Mail className="input-icon" size={20} />
+            
             <input
               type="email"
               placeholder="Email Address"
@@ -55,7 +55,7 @@ const LoginPage = () => {
             />
           </div>
           <div className="input-group">
-            <Lock className="input-icon" size={20} />
+          
             <input
               type="password"
               placeholder="Password"
