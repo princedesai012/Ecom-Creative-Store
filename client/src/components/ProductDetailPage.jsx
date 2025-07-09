@@ -41,7 +41,7 @@ const ProductDetailPage = () => {
     }
   };
 
-  if (loading) return <p className="loader">Loading...</p>;
+  if (loading) return <p className="loader"></p>;
   if (error) return <p className="error">{error}</p>;
   if (!product) return <p className="error">Product not found.</p>;
 

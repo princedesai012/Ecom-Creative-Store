@@ -1,7 +1,9 @@
 import  Order  from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import Cart from "../models/cart.model.js";
-import mongoose from "mongoose";
+
+import mongoose from 'mongoose';
+
 
 // Create a new order with stock check
 
@@ -174,6 +176,12 @@ try {
 }   
 
 // Get orders by user ID
+
+
+
+
+
+
 export const getOrdersByUserId = async (req, res) => {
   try {
     // Log and validate req.user
@@ -188,6 +196,7 @@ export const getOrdersByUserId = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid user ID format" });
     }
+
 
     const orders = await Order.find({ user: userId })
       .populate('user', 'name email')
