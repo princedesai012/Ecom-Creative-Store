@@ -11,8 +11,8 @@ const YourOrderPage = () => {
       setLoading(true);
       try {
         const response = await getOrdersByUserId();
-        setOrders(response.data.orders || []);
-        console.log(response.data);
+        setOrders(response);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -24,7 +24,7 @@ const YourOrderPage = () => {
 
   const handleCancel = async (orderId) => {
     // Call API to cancel the order (optional)
-    // await cancelOrder(orderId); 
+    // await cancelOrder(orderId);
 
     // Update UI
     setOrders((prev) =>
@@ -89,9 +89,9 @@ const YourOrderPage = () => {
                 <div className="order-items">
                   <strong>Items:</strong>
                   <ul>
-                    {order.items.map((item, index) => (
-                      <li key={`${item.productId}-${index}`}>
-                        {item.name} × {item.quantity}
+                    {order.products.map((item, index) => (
+                      <li key={`${item.product?._id || index}`}>
+                        {item.product?.name || "Unknown"} × {item.quantity}
                       </li>
                     ))}
                   </ul>
