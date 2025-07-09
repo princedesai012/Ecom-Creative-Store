@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
@@ -13,11 +14,12 @@ import AddProduct from './admin/AddProduct';
 import RequireAuth from './components/CheckAuth';
 import Cart from './components/cart'; 
 import { CartProvider } from './context/CartContext'; 
+import FeedbackModal from './components/FeedbackModal';
 
 function App() {
   return (
     <Router>
-      <CartProvider> {/*  Wrap your app inside CartProvider */}
+      <CartProvider>
         <div className="App">
           <Header />
           <Routes>
@@ -26,14 +28,11 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
-
-            {/*  Cart Page Route */}
             <Route path="/cart" element={<Cart />} />
-
-            {/* Public Admin Login */}
+            <Route path="/feedback" element={<FeedbackModal />} />
             <Route path="/admin/login" element={<AdminLogin />} />
 
-            {/*  Protected Admin Routes */}
+            {/* Protected Admin Routes */}
             <Route
               path="/admin/panel"
               element={
