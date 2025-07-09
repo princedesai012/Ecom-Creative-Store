@@ -50,7 +50,7 @@ export const deleteOrderById = async (id) => {
   }
 };
 
-export const getOrdersByUserId = async (userId) => {
+export const getOrdersByUserId = async () => {
   try {
     const response = await API.get(`/orders/user`);
     return response.data;
