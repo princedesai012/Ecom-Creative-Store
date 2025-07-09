@@ -8,10 +8,11 @@ const YourOrderPage = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
       try {
         const response = await getOrdersByUserId();
         setOrders(response.data.orders || []);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -22,16 +23,16 @@ const YourOrderPage = () => {
   }, []);
 
   const handleCancel = async (orderId) => {
-    try {
-      await cancelOrder(orderId);
-      setOrders((prev) =>
-        prev.map((order) =>
-          order._id === orderId ? { ...order, status: "Cancelled" } : order
-        )
-      );
-    } catch (error) {
-      console.error("Error cancelling order:", error);
-    }
+    // Call API to cancel the order (optional)
+    // await cancelOrder(orderId); 
+
+    // Update UI
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === orderId ? { ...order, status: "Cancelled" } : order
+      )
+    );
+    console.log(`Order ${orderId} cancelled (frontend only).`);
   };
 
   const getStatusClass = (status) => {
@@ -47,7 +48,14 @@ const YourOrderPage = () => {
     }
   };
 
-  if (loading) return <div className="orders-loading">Loading orders...</div>;
+  if (loading) {
+    return (
+      <div className="your-orders-page">
+        <h2 className="orders-title">📦 Your Orders</h2>
+        <div className="orders-loading">Loading your order history...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="your-orders-page">
@@ -69,18 +77,20 @@ const YourOrderPage = () => {
               </div>
 
               <div className="order-body">
-                <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(order.createdAt).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Total:</strong> ₹{order.total}
-                </p>
+                <div>
+                  <p>
+                    <strong>Date:</strong>{" "}
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Total:</strong> ₹{order.total.toLocaleString("en-IN")}
+                  </p>
+                </div>
                 <div className="order-items">
                   <strong>Items:</strong>
                   <ul>
-                    {order.items.map((item) => (
-                      <li key={item.productId}>
+                    {order.items.map((item, index) => (
+                      <li key={`${item.productId}-${index}`}>
                         {item.name} × {item.quantity}
                       </li>
                     ))}
