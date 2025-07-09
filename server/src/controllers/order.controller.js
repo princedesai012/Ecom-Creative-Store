@@ -182,19 +182,16 @@ try {
 
 
 
+
+
 export const getOrdersByUserId = async (req, res) => {
   try {
-    // Log and validate req.user
-    if (!req.user || !req.user._id) {
-      console.error("Missing user ID in req.user:", req.user);
-      return res.status(400).json({ message: "User ID not found in request" });
-    }
+    const userId = req.user?._id || req.user?.user?._id;
 
-    const userId = req.user._id;
+    console.log("User ID received from JWT:", userId);
 
-    // Validate if userId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: "Invalid user ID format" });
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid or missing user ID in token" });
     }
 
 
@@ -202,18 +199,14 @@ export const getOrdersByUserId = async (req, res) => {
       .populate('user', 'name email')
       .populate('products.product', 'name price');
 
-    if (!orders || orders.length === 0) {
+    if (!orders.length) {
       return res.status(404).json({ message: "No orders found for this user" });
     }
 
     return res.status(200).json(orders);
-
   } catch (error) {
     console.error("Error fetching orders by user ID:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-      error: error.message,
-    });
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 

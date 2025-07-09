@@ -28,7 +28,7 @@ router.put('/:id', VerifyJWT, VerifyAdmin, updateOrderStatus);
 router.delete('/:id', VerifyJWT, VerifyAdmin, deleteOrderById);
 
 // Get orders by user ID (requires authentication)
-router.get('/U', VerifyJWT, getOrdersByUserId);
+router.get('/User/Order', VerifyJWT, getOrdersByUserId);
 
 // Cancel an order by ID (requires authentication)
 router.post('/cancel/:id', VerifyJWT, cancelOrder);
