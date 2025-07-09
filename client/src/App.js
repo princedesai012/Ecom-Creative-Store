@@ -12,28 +12,14 @@ import AdminLogin from './admin/AdminLogin';
 import ProductDetailPage from './components/ProductDetailPage';
 import AddProduct from './admin/AddProduct';
 import RequireAuth from './components/CheckAuth';
-<<<<<<< HEAD
-=======
 import Cart from './components/cart'; 
 import { CartProvider } from './context/CartContext'; 
-import FeedbackModal from './components/FeedbackModal';
->>>>>>> 10601ec0333e152c2dc1eae85de2e10f4bacf06f
+import FeedbackPage from './components/FeedbackPage';
+
 
 function App() {
   return (
     <Router>
-<<<<<<< HEAD
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-
-            {/* Public Admin Login */}
-=======
       <CartProvider>
         <div className="App">
           <Header />
@@ -44,8 +30,7 @@ function App() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/feedback" element={<FeedbackModal />} />
->>>>>>> 10601ec0333e152c2dc1eae85de2e10f4bacf06f
+            <Route path="/feedback/:orderId" element={<FeedbackPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
 
             {/* Protected Admin Routes */}

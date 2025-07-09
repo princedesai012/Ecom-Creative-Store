@@ -1,8 +1,10 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
@@ -14,7 +16,14 @@ const Cart = () => {
     console.log("Order placed:", cartItems);
 
     alert("Order placed successfully!");
+
     clearCart();
+
+    // Mock orderId since you have no backend yet
+    const orderId = "12345";
+
+    // Navigate to feedback page with orderId
+    navigate(`/feedback/${orderId}`);
   };
 
   return (

@@ -1,13 +1,15 @@
-// src/components/FeedbackModal.jsx
-
 import React, { useState } from 'react';
-import { Star, X, Send } from 'lucide-react';
-import '../css/FeedbackModal.css';
+import { Star, Send } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
+import '../css/FeedbackModal.css'; // reuse your modal CSS for styling
 
-const FeedbackModal = ({ isOpen, onClose, orderId }) => {
+const FeedbackPage = () => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
+
+  const { orderId } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,21 +24,12 @@ const FeedbackModal = ({ isOpen, onClose, orderId }) => {
     };
     console.log("Feedback Submitted:", feedbackData);
     alert("Thank you for your feedback!");
-    onClose(); // Close the modal after submission
+    navigate('/'); // redirect to home or orders page after submission
   };
 
-  // If the modal isn't open, render nothing
-  if (!isOpen) {
-    return null;
-  }
-
   return (
-    <div className="feedback-modal-overlay">
+    <div className="feedback-page">
       <div className="feedback-modal-content">
-        <button className="close-modal-btn" onClick={onClose}>
-          <X size={24} />
-        </button>
-        
         <div className="feedback-header">
           <h2 className="feedback-title">Share Your Feedback</h2>
           <p className="feedback-subtitle">How was your experience with Order #{orderId}?</p>
@@ -78,4 +71,4 @@ const FeedbackModal = ({ isOpen, onClose, orderId }) => {
   );
 };
 
-export default FeedbackModal;
+export default FeedbackPage;
