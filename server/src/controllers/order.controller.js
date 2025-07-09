@@ -1,7 +1,9 @@
 import  Order  from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import Cart from "../models/cart.model.js";
+
 import mongoose from 'mongoose';
+
 
 // Create a new order with stock check
 
@@ -191,6 +193,7 @@ export const getOrdersByUserId = async (req, res) => {
     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid or missing user ID in token" });
     }
+
 
     const orders = await Order.find({ user: userId })
       .populate('user', 'name email')
