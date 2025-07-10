@@ -1,20 +1,16 @@
-import { API } from '../api/axios';
+import { API } from '../api/api';
 
 // Add item to cart
-export const addToCart = async (cartItem) => {
-  try {
-    const response = await API.post('/cart', cartItem);
-    return response.data;
-  } catch (error) {
-    console.error("Error adding item to cart:", error.response?.data || error.message);
-    throw error;
-  }
-};
 
+
+export const addToCart = async (productId, quantity) => {
+  const response = await API.post(`/cart/add/${productId}`, { quantity });
+  return response.data;
+};
 // Get all items in user's cart
 export const getCartItems = async () => {
   try {
-    const response = await API.get('/cart');
+    const response = await API.get('/cart/');
     return response.data;
   } catch (error) {
     console.error("Error fetching cart items:", error.response?.data || error.message);

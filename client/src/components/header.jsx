@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { User, ShoppingCart, Volume2, LogOut } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import '../css/LandingPage.css';
 import { logout, fetchUserProfile } from "../store/authslice";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-  
   useEffect(() => {
     dispatch(fetchUserProfile());
-    
-    
   }, [dispatch]);
 
   const handleLogout = () => {
@@ -26,34 +23,45 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="navbar">
-        <a href="/" className="nav-brand">
+        <Link to="/" className="nav-brand" title="Home">
           <Volume2 className="brand-icon" />
           <span className="brand-text">ZepCart</span>
-        </a>
+        </Link>
 
         <div className="nav-links">
-          <a href="/" className="nav-link">Home</a>
-          <a href="/products" className="nav-link">Products</a>
-          <a href="#help" className="nav-link">Help Centre</a>
+          <Link to="/" className="nav-link" title="Home"> Home</Link>
+          <Link to="/products" className="nav-link" title="Products"> Products</Link>
+          <a href="/Your-order" className="nav-link" title="Your Order"> Your Order</a>
         </div>
 
         <div className="nav-icons">
           {isAuthenticated ? (
             <>
-             
-              <button className="nav-icon-btn" onClick={handleLogout}>
-                <LogOut size={20} />
+              <button
+                className="nav-icon-btn"
+                onClick={handleLogout}
+                title="Logout"
+                aria-label="Logout"
+              >
+                🔓
               </button>
+
+              <button
+                className="nav-icon-btn cart-btn"
+                onClick={() => navigate('/cart')}
+                title="Cart"
+                aria-label="Cart"
+              >
+                🛒
+              </button>
+
+             
             </>
           ) : (
-            <a href="/login" className="nav-icon-btn">
-              <User size={20} />
-            </a>
+            <Link to="/login" className="nav-icon-btn" title="Login" aria-label="Login">
+              👤
+            </Link>
           )}
-
-          <button className="nav-icon-btn cart-btn">
-            <ShoppingCart size={20} />
-          </button>
         </div>
       </nav>
     </header>

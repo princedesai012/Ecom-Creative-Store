@@ -50,9 +50,9 @@ export const deleteOrderById = async (id) => {
   }
 };
 
-export const getOrdersByUserId = async (userId) => {
+export const getOrdersByUserId = async () => {
   try {
-    const response = await API.get(`/orders/user/${userId}`);
+    const response = await API.get(`/orders/User/Order`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user orders:", error.response?.data || error.message);

@@ -15,7 +15,11 @@ import RequireAuth from './components/CheckAuth';
 import Cart from './components/cart'; 
 import { CartProvider } from './context/CartContext'; 
 import FeedbackPage from './components/FeedbackPage';
-
+// import FeedbackModal from './components/FeedbackModal';
+import PlaceOrder from './components/PlaceOrder';
+import PaymentPage from './components/Payement';
+import OrderSuccess from './components/OrderSucess';
+import YourOrderPage from './components/YourOrderPage';
 
 function App() {
   return (
@@ -31,6 +35,8 @@ function App() {
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/feedback/:orderId" element={<FeedbackPage />} />
+//             <Route path="/feedback" element={<FeedbackModal />} />
+
             <Route path="/admin/login" element={<AdminLogin />} />
 
             {/* Protected Admin Routes */}
@@ -50,6 +56,43 @@ function App() {
                 </RequireAuth>
               }
             />
+
+            <Route 
+            path='/place-order'
+            element = {
+              <RequireAuth>
+              <PlaceOrder/>
+              </RequireAuth>
+            }/>
+
+            
+            <Route
+            path='/payment' 
+            element= {
+              <RequireAuth>
+             <PaymentPage/>
+              </RequireAuth>
+            }/>
+            <Route path="/cart" element={ <RequireAuth><Cart /> </RequireAuth>} />
+
+
+            <Route 
+            path="/order-success"
+            element= {
+              <RequireAuth>
+                <OrderSuccess/>
+              </RequireAuth>
+
+            }/>
+            <Route 
+            path='/Your-order'
+            element={
+              <RequireAuth>
+                <YourOrderPage/>
+              </RequireAuth>
+            }/>
+
+
           </Routes>
           <Footer />
         </div>

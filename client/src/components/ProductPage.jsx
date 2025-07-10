@@ -21,6 +21,7 @@ const ProductsPage = () => {
         const query = `?search=${search}&category=${category}&page=${page}`;
         const data = await getAllProducts(query);
         setProducts(data.products);
+        console.log(data.products);
         setTotalPages(data.totalPages || 1);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch products');

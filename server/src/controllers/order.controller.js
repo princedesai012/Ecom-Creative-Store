@@ -2,6 +2,9 @@ import  Order  from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import Cart from "../models/cart.model.js";
 
+import mongoose from 'mongoose';
+
+
 // Create a new order with stock check
 
 
@@ -173,26 +176,39 @@ try {
 }   
 
 // Get orders by user ID
-export const getOrdersByUserId = async (req, res) => {
-try {
-    const userId = req.user._id;
-    const orders = await Order.find({ user: userId }).populate('user', 'name email').populate('products.product', 'name price');
 
-    if (orders.length === 0) {
-        return res.status(404).json({ message: "No orders found for this user" });
+
+
+
+
+
+
+
+export const getOrdersByUserId = async (req, res) => {
+  try {
+    const userId = req.user?._id || req.user?.user?._id;
+
+    console.log("User ID received from JWT:", userId);
+
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid or missing user ID in token" });
+    }
+
+
+    const orders = await Order.find({ user: userId })
+      .populate('user', 'name email')
+      .populate('products.product', 'name price');
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "No orders found for this user" });
     }
 
     return res.status(200).json(orders);
-
-} catch (error) {
+  } catch (error) {
     console.error("Error fetching orders by user ID:", error);
-    return res.status(500).json({ message: "Internal server error" });
-
-}
-
-
-
-}
+    return res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+};
 
 // Cancel order by user
 export const cancelOrder = async (req, res) => {
@@ -221,6 +237,6 @@ export const cancelOrder = async (req, res) => {
         return res.status(200).json({ message: "Order cancelled successfully", order });
     } catch (error) {
         console.error("Error cancelling order:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Internal server error" , error : error.message });
     }
 };
