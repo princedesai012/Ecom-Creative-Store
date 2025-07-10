@@ -39,6 +39,12 @@ export const deleteProductById = async (id) => {
 
 // ✅ Add a review (User only)
 export const addReviewToProduct = async (productId, reviewData) => {
-  const res = await API.post(`/products/${productId}/review`, reviewData);
+  const res = await API.post(`/products/review/${productId}`, reviewData);
   return res.data;
 };
+
+
+export const getReviewtoproduct = async(productId) => {
+  const res = await API.get(`/products/review/${productId}`)
+  return res.data;
+}

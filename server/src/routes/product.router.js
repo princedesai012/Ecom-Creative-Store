@@ -30,8 +30,8 @@ router.put('/:id', VerifyJWT, VerifyAdmin, Upload.single('image'), updateProduct
 router.delete('/:id', VerifyJWT, VerifyAdmin, deleteProductById);
 
 // Add a review to a product (User must be authenticated)
-router.post('/:id/review', VerifyJWT, addReview);
-router.get("/:id/review", getReviewsByProductId)
+router.post('/review/:id', VerifyJWT, addReview);
+router.get("/review/:id", getReviewsByProductId)
 
 export default router;
 
