@@ -28,7 +28,7 @@ const FeedbackPage = () => {
   };
 
   const handleClose = () => {
-    navigate('/order-success');
+    navigate('/');
   
   };
 
