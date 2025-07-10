@@ -20,6 +20,7 @@ import PlaceOrder from './components/PlaceOrder';
 import PaymentPage from './components/Payement';
 import OrderSuccess from './components/OrderSucess';
 import YourOrderPage from './components/YourOrderPage';
+import EditProduct from './admin/EditProduct';
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route 
+            path='/admin/edit-product/:id'
+            element={
+              <RequireAuth>
+                <EditProduct/>
+              </RequireAuth>
+
+            }/>
 
             <Route 
             path='/place-order'

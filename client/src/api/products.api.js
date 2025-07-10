@@ -45,6 +45,6 @@ export const addReviewToProduct = async (productId, reviewData) => {
 
 
 export const getReviewtoproduct = async(productId) => {
-  const res = await API.get(`/products//review/pr/${productId}`)
+  const res = await API.get(`/products/review/pr/${productId}`)
   return res.data;
 }
