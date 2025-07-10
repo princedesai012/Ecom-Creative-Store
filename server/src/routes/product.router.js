@@ -14,7 +14,9 @@ getReviewsByProductId
 } from '../controllers/product.controller.js';
 
 const router = express.Router();
-
+// Add a review to a product (User must be authenticated)
+router.post('/review/:id', VerifyJWT, addReview);
+router.get("/review/:id", getReviewsByProductId)
 // Add a new product (Admin only)
 router.post('/add', VerifyJWT, VerifyAdmin, Upload.single('imageurl'), Addproduct);
 
@@ -29,9 +31,7 @@ router.put('/:id', VerifyJWT, VerifyAdmin, Upload.single('image'), updateProduct
 // Delete a product by ID (Admin only)
 router.delete('/:id', VerifyJWT, VerifyAdmin, deleteProductById);
 
-// Add a review to a product (User must be authenticated)
-router.post('/review/:id', VerifyJWT, addReview);
-router.get("/review/:id", getReviewsByProductId)
+
 
 export default router;
 
