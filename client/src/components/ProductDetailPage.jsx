@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Star, ShoppingCart, Minus, Plus } from 'lucide-react';
 import './ProductDetailPage.css';
-import { getProductById,addReviewToProduct,getReviewtoproduct } from '../api/products.api';
+import { getProductById, addReviewToProduct, getReviewtoproduct } from '../api/products.api';
 import { addToCart } from "../api/cart.api";
 
 const ProductDetailPage = () => {
@@ -21,7 +21,6 @@ const ProductDetailPage = () => {
       try {
         const data = await getProductById(id);
         setProduct(data.product);
-        console.log(data)
         const fetchedReviews = await getReviewtoproduct(id);
         setReviews(fetchedReviews);
       } catch (err) {
@@ -38,7 +37,7 @@ const ProductDetailPage = () => {
     if (!product?._id) return;
 
     try {
-      const response = await addToCart(product._id, quantity);
+      await addToCart(product._id, quantity);
       alert("Item added to cart!");
     } catch (error) {
       console.error("Add to cart failed:", error);
@@ -48,7 +47,6 @@ const ProductDetailPage = () => {
 
   const handleReviewSubmit = async () => {
     if (!newReview.comment.trim()) return alert("Please enter a comment.");
-
     setPosting(true);
     try {
       await addReviewToProduct(id, {
@@ -116,18 +114,19 @@ const ProductDetailPage = () => {
       {/* Add Review Section */}
       <div className="review-section">
         <h3 className="review-title">📝 Add a Review</h3>
+
         <div className="review-form">
-          <label>
-            Rating:
-            <select
-              value={newReview.rating}
-              onChange={(e) => setNewReview({ ...newReview, rating: parseInt(e.target.value) })}
-            >
-              {[5, 4, 3, 2, 1].map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
-          </label>
+          <div className="review-stars">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={`star ${star <= newReview.rating ? 'filled' : ''}`}
+                onClick={() => setNewReview({ ...newReview, rating: star })}
+              >
+                ★
+              </span>
+            ))}
+          </div>
 
           <textarea
             placeholder="Write your comment..."
