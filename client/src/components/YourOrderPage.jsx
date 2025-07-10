@@ -5,34 +5,40 @@ import { getOrdersByUserId, cancelOrder } from "../api/order.api";
 const YourOrderPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cancelingId, setCancelingId] = useState(null);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      setLoading(true);
-      try {
-        const response = await getOrdersByUserId();
-        setOrders(response);
-        console.log(response);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchOrders();
   }, []);
 
-  const handleCancel = async (orderId) => {
-    // Call API to cancel the order (optional)
-    // await cancelOrder(orderId);
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const response = await getOrdersByUserId();
+      setOrders(response);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    // Update UI
-    setOrders((prev) =>
-      prev.map((order) =>
-        order._id === orderId ? { ...order, status: "Cancelled" } : order
-      )
-    );
-    console.log(`Order ${orderId} cancelled (frontend only).`);
+  const handleCancel = async (orderId) => {
+    setCancelingId(orderId);
+    try {
+      const response = await cancelOrder(orderId);
+      if (response.success) {
+        alert("Order cancelled successfully!");
+        await fetchOrders();
+      } else {
+        alert(response.message || "Failed to cancel the order.");
+      }
+    } catch (error) {
+      console.error("Error cancelling order:", error);
+      alert("Something went wrong while cancelling the order.");
+    } finally {
+      setCancelingId(null);
+    }
   };
 
   const getStatusClass = (status) => {
@@ -88,12 +94,24 @@ const YourOrderPage = () => {
                 </div>
                 <div className="order-items">
                   <strong>Items:</strong>
-                  <ul>
-                    {order.products.map((item, index) => (
-                      <li key={`${item.product?._id || index}`}>
-                        {item.product?.name || "Unknown"} × {item.quantity}
-                      </li>
-                    ))}
+                  <ul className="order-item-list">
+                    {order.products.map((item, index) => {
+                      const product = item.product;
+                      const image = product?.imageUrl || "https://via.placeholder.com/80";
+                      return (
+                        <li key={`${product?._id || index}`} className="order-item">
+                          <img
+                            src={image}
+                            alt={product?.name || "Product Image"}
+                            className="order-item-image"
+                          />
+                          <div>
+                            <p>{product?.name || "Unknown"} × {item.quantity}</p>
+                            <p>₹{product?.price?.toLocaleString("en-IN")}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
@@ -102,8 +120,9 @@ const YourOrderPage = () => {
                 <button
                   className="cancel-btn"
                   onClick={() => handleCancel(order._id)}
+                  disabled={cancelingId === order._id}
                 >
-                  ❌ Cancel Order
+                  {cancelingId === order._id ? "Cancelling..." : "Cancel Order"}
                 </button>
               )}
             </div>

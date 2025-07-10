@@ -1,14 +1,7 @@
-import React from "react";
-import { useCart } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
-
-const Cart = () => {
-  const { cartItems, removeFromCart, clearCart } = useCart();
-  const navigate = useNavigate()
 import React, { useEffect, useState } from "react";
-import { getCartItems, removeCartItem, clearCart } from "../api/cart.api";
+import { useNavigate } from "react-router-dom";
+import { getCartItems, removeCartItem, clearCart as clearCartAPI } from "../api/cart.api";
 import "../css/Cart.css";
-// import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -45,13 +38,12 @@ const Cart = () => {
 
   const handleClearCart = async () => {
     try {
-      await clearCart();
+      await clearCartAPI();
       setCartItems([]);
     } catch (err) {
       console.error("Error clearing cart:", err);
     }
   };
-
 
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
@@ -59,22 +51,19 @@ const Cart = () => {
       return;
     }
 
-    // Future: send cartItems to backend API to place order
+    // Simulate placing order
     console.log("Order placed:", cartItems);
-
     alert("Order placed successfully!");
 
-    clearCart();
+    // Optional: clear cart
+    handleClearCart();
 
-    // Mock orderId since you have no backend yet
-    const orderId = "12345";
-
-    // Navigate to feedback page with orderId
-    navigate(`/feedback/${orderId}`);
-     navigate("/place-order", { state: { cartItems } });
+    
+   //OR to place order page with cartItems
+   navigate("/place-order", { state: { cartItems } });
   };
 
-  if (loading) return <p className="loader"></p>;
+  if (loading) return <p className="loader">Loading...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
