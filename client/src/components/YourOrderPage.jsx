@@ -16,6 +16,7 @@ const YourOrderPage = () => {
     try {
       const response = await getOrdersByUserId();
       setOrders(response);
+      console.log(response)
     } catch (error) {
       console.error("Error fetching orders:", error);
     } finally {
