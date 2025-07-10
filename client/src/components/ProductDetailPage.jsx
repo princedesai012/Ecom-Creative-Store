@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Star, ShoppingCart, Minus, Plus } from 'lucide-react';
 import './ProductDetailPage.css';
-import { getProductById } from '../api/products.api';
+import { getProductById,addReviewToProduct,getReviewtoproduct } from '../api/products.api';
 import { addToCart } from "../api/cart.api";
 
 const ProductDetailPage = () => {
@@ -11,6 +11,9 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
+  const [posting, setPosting] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -18,6 +21,9 @@ const ProductDetailPage = () => {
       try {
         const data = await getProductById(id);
         setProduct(data.product);
+        console.log(data)
+        const fetchedReviews = await getReviewtoproduct(id);
+        setReviews(fetchedReviews);
       } catch (err) {
         setError('Failed to fetch product details.');
       } finally {
@@ -40,11 +46,31 @@ const ProductDetailPage = () => {
     }
   };
 
+  const handleReviewSubmit = async () => {
+    if (!newReview.comment.trim()) return alert("Please enter a comment.");
+
+    setPosting(true);
+    try {
+      await addReviewToProduct(id, {
+        rating: newReview.rating,
+        comment: newReview.comment
+      });
+
+      const updatedReviews = await getReviewtoproduct(id);
+      setReviews(updatedReviews);
+      setNewReview({ rating: 5, comment: '' });
+    } catch (err) {
+      alert("Failed to post review.");
+    } finally {
+      setPosting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
         <div className="loader-circle" />
-        <p></p>
+        <p>Loading product details...</p>
       </div>
     );
   }
@@ -85,6 +111,49 @@ const ProductDetailPage = () => {
           <ShoppingCart size={20} />
           Add to Cart
         </button>
+      </div>
+
+      {/* Add Review Section */}
+      <div className="review-section">
+        <h3 className="review-title">📝 Add a Review</h3>
+        <div className="review-form">
+          <label>
+            Rating:
+            <select
+              value={newReview.rating}
+              onChange={(e) => setNewReview({ ...newReview, rating: parseInt(e.target.value) })}
+            >
+              {[5, 4, 3, 2, 1].map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+          </label>
+
+          <textarea
+            placeholder="Write your comment..."
+            value={newReview.comment}
+            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+          />
+
+          <button onClick={handleReviewSubmit} disabled={posting}>
+            {posting ? "Posting..." : "Submit Review"}
+          </button>
+        </div>
+
+        <h3 className="review-title">🗣️ User Reviews</h3>
+        {reviews.length === 0 ? (
+          <p>No reviews yet.</p>
+        ) : (
+          <ul className="reviews-list">
+            {reviews.map((rev, i) => (
+              <li key={i} className="review-item">
+                <strong>{rev.user?.name || "Anonymous"}</strong> rated {rev.rating}/5
+                <p>{rev.comment}</p>
+                <small>{new Date(rev.createdAt).toLocaleDateString()}</small>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
