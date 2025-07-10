@@ -232,4 +232,25 @@ export const addReview = async (req, res) => {
     }
 }
 
+// get all reviews for a specific product
+export const getReviewsByProductId = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    // Check if product exists
+    const product = await Product.findById(productId).populate("reviews.user", "name email");
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Return only reviews
+    res.status(200).json({
+      message: "Reviews fetched successfully",
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    console.error("Error fetching product reviews:", error);
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+};
 

@@ -126,3 +126,35 @@
   align-items: center;
   margin-bottom: 1.5rem;
 }
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: var(--text-muted);
+}
+
+.loader-circle {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid var(--primary-glow);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  color: var(--secondary-glow);
+  text-align: center;
+  font-weight: 600;
+  padding: 4rem 1rem;
+  font-size: 1.2rem;
+}

@@ -47,7 +47,7 @@ Installation Steps
 
   -For server
       cd ../server
-      npm run dev 
+      npm run dev
 
 
 

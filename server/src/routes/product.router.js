@@ -9,7 +9,8 @@ import {
   getProductById,
   updateProductById,
 deleteProductById,
-addReview
+addReview,
+getReviewsByProductId
 } from '../controllers/product.controller.js';
 
 const router = express.Router();
@@ -30,6 +31,7 @@ router.delete('/:id', VerifyJWT, VerifyAdmin, deleteProductById);
 
 // Add a review to a product (User must be authenticated)
 router.post('/:id/review', VerifyJWT, addReview);
+router.get("/:id/review", getReviewsByProductId)
 
 export default router;
 
