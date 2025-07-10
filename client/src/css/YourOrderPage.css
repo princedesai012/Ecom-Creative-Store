@@ -171,8 +171,8 @@
   padding: 0.75rem 1.5rem;
   border: 1px solid var(--danger-red);
   border-radius: 50px;
-  background-color: rgba(239, 68, 68, 0.1);
-  color: var(--danger-red);
+  background-color: rgba(23, 1, 22, 0.1);
+  color: white;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -206,4 +206,24 @@
   .order-body {
     grid-template-columns: 1fr;
   }
+}
+  .order-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.order-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
 }
