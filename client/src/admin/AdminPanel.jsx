@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../css/AdminPanel.css';
 import { useNavigate } from 'react-router-dom';
-import { getAllOrders } from '../api/order.api';
-import { getAllProducts,deleteProductById } from '../api/products.api'; 
+import { getAllOrders, updateOrderStatus } from '../api/order.api';
+import { getAllProducts, deleteProductById } from '../api/products.api';
 
 function AdminPanel() {
   const [view, setView] = useState('orders');
@@ -42,7 +42,7 @@ function AdminPanel() {
     try {
       await deleteProductById(id);
       alert("Product deleted successfully!");
-      fetchProducts(); // Refresh product list
+      fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
       alert("Failed to delete product.");
@@ -57,6 +57,17 @@ function AdminPanel() {
 
   const handleAddProduct = () => navigate('/admin/add-product');
   const handleEditProduct = (id) => navigate(`/admin/edit-product/${id}`);
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      await updateOrderStatus(orderId, { status: newStatus });
+      console.log()
+      fetchOrders(); // Refresh orders
+    } catch (error) {
+      alert('Failed to update order status.');
+      console.error(error);
+    }
+  };
 
   return (
     <div className="admin-container">
@@ -99,8 +110,20 @@ function AdminPanel() {
                         <td>{item.product?.name}</td>
                         <td>{item.quantity}</td>
                         <td>₹{item.product?.price * item.quantity}</td>
-                        <td>{order.status}</td>
+                        <td>
+                          <select
+                            value={order.status}
+                            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                          >
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                          </select>
+                        </td>
                       </tr>
+
                     ))
                   )
                 ) : (

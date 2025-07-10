@@ -20,7 +20,7 @@ const FeedbackPage = () => {
     try {
       await createContactMessage(email, message);
       alert("Thank you for your feedback!");
-      navigate('/');
+      navigate('/order-success');
     } catch (err) {
       console.error("Failed to submit feedback:", err);
       alert("Something went wrong. Please try again.");
@@ -28,7 +28,8 @@ const FeedbackPage = () => {
   };
 
   const handleClose = () => {
-    navigate('/');
+    navigate('/order-success');
+  
   };
 
   return (

@@ -1,0 +1,30 @@
+.edit-product-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #1f2937;
+  color: white;
+  border-radius: 10px;
+}
+
+.edit-product-form label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.edit-product-form input,
+.edit-product-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.edit-product-form button {
+  padding: 0.6rem 1.2rem;
+  background-color: #7e22ce;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { Star, ShoppingCart, Minus, Plus } from 'lucide-react';
 import './ProductDetailPage.css';
 import { getProductById, addReviewToProduct, getReviewtoproduct } from '../api/products.api';
 import { addToCart } from "../api/cart.api";
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -21,8 +22,9 @@ const ProductDetailPage = () => {
       try {
         const data = await getProductById(id);
         setProduct(data.product);
+
         const fetchedReviews = await getReviewtoproduct(id);
-        setReviews(fetchedReviews);
+        setReviews(fetchedReviews.reviews || []);
       } catch (err) {
         setError('Failed to fetch product details.');
       } finally {
@@ -32,13 +34,16 @@ const ProductDetailPage = () => {
 
     fetchProductDetails();
   }, [id]);
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
     if (!product?._id) return;
 
     try {
       await addToCart(product._id, quantity);
-      alert("Item added to cart!");
+      navigate("/cart")
+      
+
     } catch (error) {
       console.error("Add to cart failed:", error);
       alert("Failed to add item to cart.");
@@ -55,8 +60,7 @@ const ProductDetailPage = () => {
       });
 
       const updatedReviews = await getReviewtoproduct(id);
-      setReviews(updatedReviews);
-      console.log(updatedReviews)
+      setReviews(updatedReviews.reviews || []);
       setNewReview({ rating: 5, comment: '' });
     } catch (err) {
       alert("Failed to post review.");
@@ -141,18 +145,27 @@ const ProductDetailPage = () => {
         </div>
 
         <h3 className="review-title">🗣️ User Reviews</h3>
-        {reviews.length === 0 ? (
-          <p>No reviews yet.</p>
-        ) : (
+        {Array.isArray(reviews) && reviews.length > 0 ? (
           <ul className="reviews-list">
             {reviews.map((rev, i) => (
               <li key={i} className="review-item">
-                <strong>{rev.user?.name || "Anonymous"}</strong> rated {rev.rating}/5
+                <strong>{rev.user?.name || "Anonymous"}</strong>
+                <div className="user-rating-stars">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      size={16}
+                      fill={star <= rev.rating ? "#fbbf24" : "none"}
+                      stroke="#fbbf24"
+                    />
+                  ))}
+                </div>
                 <p>{rev.comment}</p>
-                <small>{new Date(rev.createdAt).toLocaleDateString()}</small>
               </li>
             ))}
           </ul>
+        ) : (
+          <p>No reviews yet.</p>
         )}
       </div>
     </div>

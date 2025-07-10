@@ -53,17 +53,15 @@ const Cart = () => {
 
     // Simulate placing order
     console.log("Order placed:", cartItems);
-    alert("Order placed successfully!");
+   
 
-    // Optional: clear cart
-    handleClearCart();
-
+    
     
    //OR to place order page with cartItems
    navigate("/place-order", { state: { cartItems } });
   };
 
-  if (loading) return <p className="loader">Loading...</p>;
+  if (loading) return <p className="loader"></p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
