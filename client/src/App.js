@@ -14,7 +14,8 @@ import AddProduct from './admin/AddProduct';
 import RequireAuth from './components/CheckAuth';
 import Cart from './components/cart'; 
 import { CartProvider } from './context/CartContext'; 
-import FeedbackModal from './components/FeedbackModal';
+import FeedbackPage from './components/FeedbackPage';
+// import FeedbackModal from './components/FeedbackModal';
 import PlaceOrder from './components/PlaceOrder';
 import PaymentPage from './components/Payement';
 import OrderSuccess from './components/OrderSucess';
@@ -32,7 +33,10 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
-            <Route path="/feedback" element={<FeedbackModal />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/feedback/:orderId" element={<FeedbackPage />} />
+//             <Route path="/feedback" element={<FeedbackModal />} />
+
             <Route path="/admin/login" element={<AdminLogin />} />
 
             {/* Protected Admin Routes */}

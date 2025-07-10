@@ -1,7 +1,14 @@
+import React from "react";
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+
+const Cart = () => {
+  const { cartItems, removeFromCart, clearCart } = useCart();
+  const navigate = useNavigate()
 import React, { useEffect, useState } from "react";
 import { getCartItems, removeCartItem, clearCart } from "../api/cart.api";
 import "../css/Cart.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -45,12 +52,25 @@ const Cart = () => {
     }
   };
 
+
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
       alert("Cart is empty!");
       return;
     }
 
+    // Future: send cartItems to backend API to place order
+    console.log("Order placed:", cartItems);
+
+    alert("Order placed successfully!");
+
+    clearCart();
+
+    // Mock orderId since you have no backend yet
+    const orderId = "12345";
+
+    // Navigate to feedback page with orderId
+    navigate(`/feedback/${orderId}`);
      navigate("/place-order", { state: { cartItems } });
   };
 
