@@ -56,6 +56,7 @@ const ProductDetailPage = () => {
 
       const updatedReviews = await getReviewtoproduct(id);
       setReviews(updatedReviews);
+      console.log(updatedReviews)
       setNewReview({ rating: 5, comment: '' });
     } catch (err) {
       alert("Failed to post review.");

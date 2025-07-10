@@ -15,8 +15,8 @@ import {
 const router = express.Router();
 
 // ✅ Add a review to a product (User must be authenticated)
-router.post('/review/:id', VerifyJWT, addReview);
-router.get('/review/:id', getReviewsByProductId);
+router.post('/review/pr/:id', VerifyJWT, addReview);
+router.get('/review/pr/:id', getReviewsByProductId);
 
 // ✅ Add a new product (Admin only)
 router.post('/add', VerifyJWT, VerifyAdmin, Upload.single('imageurl'), Addproduct);
