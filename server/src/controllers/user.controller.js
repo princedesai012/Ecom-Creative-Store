@@ -108,7 +108,7 @@ export const loginUser = async (req, res) => {
      const cookieOptions = {
       httpOnly: true,  
       secure: "production",
-      samesite : 'None', 
+      sameSite : 'None', 
      }
 
      res.cookie('accessToken', accessToken, cookieOptions);
@@ -139,7 +139,8 @@ export const logoutUser = async (req, res) => {
 
           const cookieOptions = {
       httpOnly: true,  
-      secure: true, 
+      secure: true,
+      sameSite : 'None', 
      }
 
           res.clearCookie('accessToken', cookieOptions);
