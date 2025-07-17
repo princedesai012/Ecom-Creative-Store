@@ -11,7 +11,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(fetchUserProfile());
-  }, [dispatch]);
+  }, []);
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
