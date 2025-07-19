@@ -20,7 +20,7 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(login(formData))
       .then((response) => {
-        console.log('Login successful:', response);
+        console.log('Login successful:', response.accessToken);
         navigate('/');
       })
       .catch((error) => {
