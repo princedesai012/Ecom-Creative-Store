@@ -1,20 +1,33 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, fetchUserProfile } from '../store/authslice';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authslice';
 import { useNavigate, Link } from 'react-router-dom';
 import '../css/LandingPage.css';
+import { fetchCurrentUser } from '../api/auth.api';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const checkedRef = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchUserProfile());
+    if (checkedRef.current) return;
+    checkedRef.current = true;
+    const checkAuth = async () => {
+      try {
+        await fetchCurrentUser();
+        setIsAuthenticated(true);
+      } catch (err) {
+        setIsAuthenticated(false);
+      }
+    };
+    checkAuth();
   }, []);
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
+      setIsAuthenticated(false);
       navigate('/login');
     });
   };
