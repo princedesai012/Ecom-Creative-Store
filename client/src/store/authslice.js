@@ -4,7 +4,13 @@ import { loginUser, logoutUser, fetchCurrentUser } from '../api/auth.api';
 // Async thunk for user login
 export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await loginUser(credentials); // response should include user object
+    const response = await loginUser(credentials); // returns { user, accessToken, refreshToken }
+    const { accessToken, refreshToken } = response;
+
+    // Save tokens to localStorage
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+
     return response;
   } catch (error) {
     return rejectWithValue(error.response?.data || error.message);
@@ -15,6 +21,11 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     const response = await logoutUser();
+
+    // Clear tokens
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
     return response;
   } catch (error) {
     return rejectWithValue(error.response?.data || error.message);
@@ -35,7 +46,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
-    isAuthenticated: false,
+    isAuthenticated: !!localStorage.getItem('accessToken'),
     isAdmin: false,
     loading: false,
     error: null,
@@ -47,12 +58,14 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Login
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        const user = action.payload.user;
+        const { user } = action.payload;
+
         state.loading = false;
         state.isAuthenticated = true;
         state.user = user;
@@ -63,6 +76,7 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
+      // Logout
       .addCase(logout.pending, (state) => {
         state.loading = true;
       })
@@ -77,11 +91,12 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
+      // Fetch User Profile
       .addCase(fetchUserProfile.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
-        const user = action.payload.user;
+        const { user } = action.payload;
         state.loading = false;
         state.user = user;
         state.isAuthenticated = true;
@@ -91,6 +106,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.isAuthenticated = false;
+        state.user = null;
         state.isAdmin = false;
       });
   },
