@@ -109,6 +109,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,  
       secure: "production",
       sameSite : 'None', 
+    partitioned: true
      }
 
      res.cookie('accessToken', accessToken, cookieOptions);
@@ -141,6 +142,7 @@ export const logoutUser = async (req, res) => {
       httpOnly: true,  
       secure: true,
       sameSite : 'None', 
+        partitioned: true
      }
 
           res.clearCookie('accessToken', cookieOptions);
