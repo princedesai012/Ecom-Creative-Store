@@ -1,33 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../store/authslice';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, fetchUserProfile } from '../store/authslice';
 import { useNavigate, Link } from 'react-router-dom';
 import '../css/LandingPage.css';
-import { fetchCurrentUser } from '../api/auth.api';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const checkedRef = useRef(false);
 
-  useEffect(() => {
-    if (checkedRef.current) return;
-    checkedRef.current = true;
-    const checkAuth = async () => {
-      try {
-        await fetchCurrentUser();
-        setIsAuthenticated(true);
-      } catch (err) {
-        setIsAuthenticated(false);
-      }
-    };
-    checkAuth();
-  }, []);
+  const {  isAuthenticated } = useSelector((state) => state.auth);
+
+ 
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
-      setIsAuthenticated(false);
       navigate('/login');
     });
   };
@@ -43,11 +29,12 @@ const Header = () => {
         <div className="nav-links">
           <Link to="/" className="nav-link" title="Home">Home</Link>
           <Link to="/products" className="nav-link" title="Products">Products</Link>
-          <a href="/Your-order" className="nav-link" title="Your Order">Your Order</a>
+          <Link to="/your-order" className="nav-link" title="Your Order">Your Order</Link>
         </div>
 
         <div className="nav-icons">
-          {isAuthenticated ? (
+          
+        { isAuthenticated ? (
             <>
               <button
                 className="nav-icon-btn"
@@ -68,7 +55,12 @@ const Header = () => {
               </button>
             </>
           ) : (
-            <Link to="/login" className="nav-icon-btn" title="Login" aria-label="Login">
+            <Link
+              to="/login"
+              className="nav-icon-btn"
+              title="Login"
+              aria-label="Login"
+            >
               Login
             </Link>
           )}
