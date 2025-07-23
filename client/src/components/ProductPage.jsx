@@ -90,7 +90,7 @@ const ProductsPage = () => {
                 </div>
                 <div className="product-info">
                   <span className="product-category-tag">{product.category}</span>
-                  <h2 className="product-name">{product.name}</h2>
+                  <h2 className="product-name" style={{ color: 'black' }}>{product.name}</h2>
                   <p className="product-desc">{product.description}</p>
                   <div className="product-footer">
                     <p className="product-price">₹{product.price.toLocaleString('en-IN')}</p>

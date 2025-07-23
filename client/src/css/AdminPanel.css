@@ -1,179 +1,417 @@
-:root {
-  --bg-dark: #0c0a1a;
-  --bg-sidebar: rgba(18, 16, 28, 0.6);
-  --bg-main: rgba(20, 18, 30, 0.4);
-  --glass-blur: blur(20px);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-  --text-light: #f1f5f9;
-  --text-muted: #9ca3af;
+/* --- GLOBAL STYLES (Adjusted for Charcoal & Amber) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  --accent-purple: #7e22ce;
-  --accent-purple-dark: #581c87;
-  --accent-yellow: #facc15;
-  --accent-red: #ef4444;
-
-  --border-color: rgba(255, 255, 255, 0.1);
+body {
+    background-color: #f3f4f6; /* Very light grey background for the entire page */
+    color: #1f2937; /* Dark charcoal for default text */
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 .admin-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: var(--bg-dark);
-  font-family: 'Segoe UI', sans-serif;
-  color: var(--text-light);
-  padding: 50px  10px 10px 10px;
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+    /* No top padding here, as hamburger will be fixed */
+    position: relative; /* Needed for absolute positioning of hamburger/overlay */
+}
+
+/* --- Hamburger Menu --- */
+.hamburger-menu {
+    display: none; /* Hidden by default on desktop */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #f59e0b; /* Amber */
+    color: white;
+    font-size: 24px;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1001; /* Above sidebar overlay */
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background-color: #fbbf24; /* Lighter amber on hover */
 }
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
-  background: var(--bg-sidebar);
-  backdrop-filter: var(--glass-blur);
-  border-right: 1px solid var(--border-color);
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    width: 250px;
+    background: #ffffff; /* White background for sidebar */
+    border-right: 1px solid #e5e7eb; /* Light grey border */
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow on the right */
+    flex-shrink: 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Add transition for sliding */
+    z-index: 1000; /* Ensure sidebar is above main content */
 }
 
 .sidebar h2 {
-  color: var(--accent-purple);
-  font-size: 24px;
-  margin-bottom: 20px;
+    color: #1f2937; /* Dark charcoal for sidebar title */
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .sidebar button {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 16px;
-  padding: 12px;
-  text-align: left;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #6b7280; /* Medium grey for muted text */
+    font-size: 16px;
+    padding: 12px;
+    text-align: left;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.sidebar button:hover,
+.sidebar button:hover {
+    background-color: #f9fafb; /* Very light grey on hover */
+    color: #1f2937; /* Dark charcoal on hover */
+}
+
 .sidebar button.active {
-  background-color: var(--accent-purple);
-  color: white;
+    background-color: #f59e0b; /* Amber for active state */
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2); /* Amber shadow */
 }
 
 /* Add Product Button */
 .add-product-btn {
-  background-color: var(--accent-purple);
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: auto;
-  transition: background-color 0.3s;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 9999px; /* Pill shape */
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2); /* Amber shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .add-product-btn:hover {
-  background-color: var(--accent-purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
 }
 
 /* Main Panel */
 .main-content {
-  flex: 1;
-  padding: 40px;
-  background: var(--bg-main);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-left: 1px solid var(--border-color);
-  overflow-x: auto;
+    flex: 1;
+    padding: 40px;
+    background: #f9fafb; /* Very light grey background for main content */
+    border-left: 1px solid #e5e7eb; /* Light grey border */
+    overflow-x: auto;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .main-content h1 {
-  font-size: 30px;
-  font-weight: bold;
-  color: var(--text-light);
-  margin-bottom: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 25px;
 }
 
 .main-content h2 {
-  font-size: 20px;
-  margin: 20px 0 10px;
-  color: var(--text-light);
+    font-size: 20px;
+    margin: 20px 0 10px;
+    color: #1f2937;
 }
 
 /* Table */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-  overflow: hidden;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 th, td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-light);
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    color: #1f2937;
+    white-space: nowrap; /* Prevent content from wrapping in table cells */
 }
 
 th {
-  background-color: rgba(255, 255, 255, 0.05);
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase;
+    background-color: #f3f4f6;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #6b7280;
 }
 
-td button {
-  background: var(--accent-yellow);
-  color: #111;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
+/* Product Thumbnail */
+.product-thumb {
+    width: 50px; /* Smaller thumbnail size */
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
 }
 
-/* Status Badge */
+/* Action Buttons in Table */
+.action-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 8px; /* Space between buttons */
+}
+
+.action-button.edit-button {
+    background: #f59e0b; /* Amber */
+    color: white;
+    box-shadow: 0 2px 5px rgba(245, 158, 11, 0.2);
+}
+.action-button.edit-button:hover {
+    background-color: #fbbf24;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.action-button.delete-button {
+    background: #ef4444; /* Red */
+    color: white;
+    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.2);
+}
+.action-button.delete-button:hover {
+    background-color: #dc2626; /* Darker red */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+}
+
+/* Status Select for Orders */
+.status-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    color: #1f2937;
+}
+
+/* Specific background and text colors for status options based on status-select class */
+.status-select.status-pending {
+    background-color: rgba(255, 159, 0, 0.1); /* Light orange tint */
+    color: #ff9f00; /* Orange text */
+    border-color: #ff9f00;
+}
+.status-select.status-processing {
+    background-color: rgba(250, 204, 21, 0.1); /* Light yellow tint */
+    color: #facc15; /* Yellow text */
+    border-color: #facc15;
+}
+.status-select.status-shipped {
+    background-color: rgba(59, 130, 246, 0.1); /* Light blue tint */
+    color: #3b82f6; /* Blue text */
+    border-color: #3b82f6;
+}
+.status-select.status-delivered {
+    background-color: rgba(34, 197, 94, 0.1); /* Light green tint */
+    color: #22c55e; /* Green text */
+    border-color: #22c55e;
+}
+.status-select.status-cancelled {
+    background-color: rgba(239, 68, 68, 0.1); /* Light red tint */
+    color: #ef4444; /* Red text */
+    border-color: #ef4444;
+}
+
+
+/* Status Badge (for general status display, if not using select) */
 .status {
-  padding: 5px 12px;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-transform: capitalize;
-  display: inline-block;
+    padding: 5px 12px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    display: inline-block;
 }
-
+/* Note: The .status classes are primarily used for general display.
+   For the <select> element, we are now using .status-select.status-[status-name] classes.
+   You can still keep these .status classes if you display status elsewhere as text. */
 .status.pending {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: var(--accent-red);
+    background-color: rgba(255, 159, 0, 0.1);
+    color: #ff9f00;
 }
 
 .status.processing {
-  background-color: rgba(250, 204, 21, 0.15);
-  color: var(--accent-yellow);
+    background-color: rgba(250, 204, 21, 0.1);
+    color: #facc15;
+}
+/* If shipped needs a specific color for non-select display */
+.status.shipped {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+.status.delivered {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+.status.cancelled {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
 }
 
-.status.delivered {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+
+/* --- Sidebar Overlay --- */
+.sidebar-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+    z-index: 999; /* Below sidebar, above main content */
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    justify-content: space-between;
-  }
+    .hamburger-menu {
+        display: block; /* Show hamburger on mobile */
+    }
 
-  .main-content {
-    padding: 20px;
-  }
+    .admin-container {
+        /* On mobile, main content takes full width. Sidebar is absolute positioned */
+        flex-direction: column; /* Stack main content below hamburger/header area */
+    }
 
-  table {
-    font-size: 14px;
-  }
+    .sidebar {
+        position: fixed;
+        top: 0; /* Align to top of viewport */
+        left: 0;
+        height: 100vh; /* Full height */
+        width: 250px; /* Fixed width for sliding */
+        transform: translateX(-100%); /* Start off-screen to the left */
+        border-right: 1px solid #e5e7eb; /* Keep border */
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2); /* Stronger shadow when open */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Slide into view */
+    }
+
+    .sidebar-overlay {
+        display: block; /* Show overlay when sidebar is open */
+        opacity: 0;
+        animation: fade-in-overlay 0.3s forwards;
+    }
+    @keyframes fade-in-overlay {
+        to { opacity: 1; }
+    }
+
+    .main-content {
+        /* On mobile, main content should not have a left border */
+        border-left: none;
+        box-shadow: none; /* Remove main content shadow on mobile */
+        padding: 20px;
+        padding-top: 80px; /* Space for hamburger button and potential header area */
+    }
+
+    /* Table specific adjustments for better mobile scrolling */
+    table {
+        font-size: 14px;
+        display: block; /* Allows horizontal scrolling */
+        width: 100%; /* Ensure it takes full width */
+        overflow-x: auto; /* Enable horizontal scrolling for table */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    th, td {
+        min-width: 100px; /* Ensure columns have a minimum width */
+    }
+    th:first-child, td:first-child {
+        min-width: 120px; /* Give ID/Primary column a bit more space */
+    }
+    .product-thumb {
+        width: 40px;
+        height: 40px;
+    }
+    .action-button {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    .action-button.delete-button {
+        margin-right: 0; /* Remove extra margin for last button */
+    }
+}
+
+@media (max-width: 480px) {
+    .hamburger-menu {
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        padding: 3px 10px;
+    }
+    .main-content {
+        padding: 15px;
+        padding-top: 70px; /* Adjust top padding for smaller hamburger */
+    }
+    .main-content h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .main-content h2 {
+        font-size: 18px;
+        margin: 15px 0 8px;
+    }
+    th, td {
+        padding: 12px;
+        min-width: 80px; /* Further reduce min-width if needed on very small screens */
+    }
+    th:first-child, td:first-child {
+        min-width: 100px;
+    }
+    .product-thumb {
+        width: 30px;
+        height: 30px;
+    }
+    .action-button {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    .status-select {
+        font-size: 13px;
+        padding: 5px 8px;
+        background-position: right 5px center;
+        background-size: 14px;
+    }
 }

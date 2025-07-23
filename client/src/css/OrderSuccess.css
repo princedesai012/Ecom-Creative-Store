@@ -1,42 +1,44 @@
-/* src/css/OrderSuccess.css */
+/* src/css/OrderSuccess.css - Charcoal & Amber Palette */
 
 .order-success-container {
   min-height: 100vh;
-  background: rgb(39, 2, 39);
+  background-color: #f3f4f6; /* Very light grey background */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  color: white;
+  color: #1f2937; /* Dark charcoal for default text */
   font-family: 'Inter', sans-serif;
 }
 
 .order-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff; /* White background for the card */
+  /* Remove backdrop-filter as it's for glass effect which we're moving away from */
+  border: 1px solid #e5e7eb; /* Light grey border */
   padding: 3rem;
   border-radius: 16px;
   text-align: center;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Softer shadow for light theme */
 }
 
 .emoji {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: #f59e0b; /* Amber for the emoji (e.g., success checkmark emoji) */
 }
 
 .success-title {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: #1f2937; /* Dark charcoal for title */
 }
 
 .success-message {
   font-size: 1rem;
-  color: #e0f2fe;
+  color: #6b7280; /* Medium grey for message */
   margin-bottom: 2rem;
   line-height: 1.5;
 }
@@ -49,29 +51,59 @@
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 1.8rem; /* Slightly more padding for better button feel */
   border: none;
-  border-radius: 30px;
+  border-radius: 9999px; /* Pill shape for buttons */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none; /* In case these are anchor tags */
+  display: inline-flex; /* For consistent alignment if they contain icons */
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-shop {
-  background-color: #fbbf24;
-  color: black;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient */
+  color: #ffffff; /* White text on amber */
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2); /* Amber shadow */
 }
 
 .btn-shop:hover {
-  background-color: #facc15;
+  transform: translateY(-3px); /* Lift effect */
+  box-shadow: 0 12px 28px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
 }
 
 .btn-orders {
-  background-color: transparent;
-  border: 1px solid white;
-  color: white;
+  background-color: #ffffff; /* White background for secondary button */
+  border: 1px solid #d1d5db; /* Light grey border */
+  color: #1f2937; /* Dark charcoal text */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .btn-orders:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #f9fafb; /* Very light grey on hover */
+  border-color: #a1a1aa; /* Slightly darker border on hover */
+  color: #1f2937; /* Dark charcoal on hover */
+  transform: translateY(-2px); /* Slight lift */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* More pronounced subtle shadow */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .order-card {
+      padding: 2rem 1.5rem;
+  }
+
+  .success-buttons {
+      flex-direction: column; /* Stack buttons vertically */
+      width: 100%;
+      max-width: 250px; /* Constrain button width */
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .btn {
+      width: 100%; /* Full width buttons when stacked */
+  }
 }

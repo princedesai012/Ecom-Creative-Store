@@ -1,30 +1,149 @@
+/* src/components/EditProduct.css - Refactored for Charcoal & Amber Palette */
+
 .edit-product-container {
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: #1f2937;
-  color: white;
-  border-radius: 10px;
+  margin: 2rem auto; /* Centers the card horizontally with top/bottom margin */
+  padding: 2rem; /* Increased padding for better spacing */
+  background: #ffffff; /* White background for the card */
+  color: #1f2937; /* Dark charcoal for text */
+  border-radius: 12px; /* Consistent border radius with other cards */
+  border: 1px solid #e5e7eb; /* Light grey border */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  font-family: 'Inter', sans-serif; /* Ensure consistent font */
+}
+
+.edit-product-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem; /* More space below heading */
+  text-align: center;
+  color: #1f2937; /* Dark charcoal */
 }
 
 .edit-product-form label {
   display: block;
-  margin: 0.5rem 0 0.2rem;
+  margin: 0.8rem 0 0.4rem; /* More space for labels */
+  font-weight: 500; /* Slightly bolder labels */
+  color: #374151; /* Slightly darker grey for labels */
 }
 
 .edit-product-form input,
-.edit-product-form textarea {
+.edit-product-form textarea,
+.edit-product-form select { /* Added select for consistency if category or other dropdowns exist */
   width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
+  padding: 1rem; /* Consistent padding with Add Product form */
+  margin-bottom: 1.5rem; /* Consistent margin with Add Product form */
+  border-radius: 12px; /* Consistent border radius */
+  background-color: #f9fafb; /* Very light grey background for inputs */
+  border: 1px solid #d1d5db; /* Light grey border */
+  color: #1f2937; /* Dark charcoal for input text */
+  font-size: 1rem;
+  transition: all 0.3s ease; /* Smooth transitions for focus */
+}
+
+.edit-product-form textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 100px; /* Minimum height for textareas */
+}
+
+.edit-product-form input::placeholder,
+.edit-product-form textarea::placeholder {
+  color: #a1a1aa; /* Muted grey for placeholder */
+}
+
+.edit-product-form input:focus,
+.edit-product-form textarea:focus,
+.edit-product-form select:focus {
+  outline: none;
+  border-color: #f59e0b; /* Amber border on focus */
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* Amber glow on focus */
 }
 
 .edit-product-form button {
-  padding: 0.6rem 1.2rem;
-  background-color: #7e22ce;
+  padding: 1rem 1.5rem; /* Consistent padding with Add Product button */
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600; /* Medium bold */
+  background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 9999px; /* Consistent pill shape */
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2); /* Amber shadow */
+  margin-top: 0.5rem; /* Space above button */
+  display: inline-flex; /* For potential icons/alignment */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.edit-product-form button:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+  box-shadow: 0 12px 25px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
+}
+.edit-product-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .edit-product-container {
+      margin: 1rem; /* Smaller margins on mobile */
+      padding: 1.5rem; /* Adjusted padding */
+      border-radius: 10px;
+  }
+
+  .edit-product-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+  }
+
+  .edit-product-form label {
+      margin: 0.6rem 0 0.3rem;
+  }
+
+  .edit-product-form input,
+  .edit-product-form textarea,
+  .edit-product-form select {
+      padding: 0.8rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+  }
+
+  .edit-product-form button {
+      padding: 0.9rem 1.2rem;
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-product-container {
+      margin: 0.5rem; /* Even smaller margins */
+      padding: 1rem;
+      border-radius: 8px;
+  }
+
+  .edit-product-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+  }
+
+  .edit-product-form label {
+      font-size: 0.9rem;
+  }
+
+  .edit-product-form input,
+  .edit-product-form textarea,
+  .edit-product-form select {
+      padding: 0.7rem;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+  }
+
+  .edit-product-form button {
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+  }
 }

@@ -1,10 +1,10 @@
-/* Cart.css */
+/* Cart.css - Charcoal & Amber Palette */
 
 .cart-page {
   min-height: 100vh;
   padding: 6rem 1.5rem 2rem;
-  background: linear-gradient(120deg, #1e1b2e, #2a0f36);
-  color: #f3f4f6;
+  background-color: #f3f4f6; /* Very light grey background */
+  color: #1f2937; /* Dark charcoal for main text */
   font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
@@ -15,13 +15,13 @@
   font-size: 2.7rem;
   font-weight: bold;
   margin-bottom: 2rem;
-  color: #fbbf24;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  color: #f59e0b; /* Amber for title */
+  text-shadow: none; /* Remove dark shadow for light background */
 }
 
 .empty-text {
   font-size: 1.3rem;
-  color: #a1a1aa;
+  color: #6b7280; /* Medium grey for muted text */
   margin-top: 2rem;
 }
 
@@ -37,17 +37,19 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: #ffffff; /* White background for cart items */
+  border: 1px solid #e5e7eb; /* Light grey border */
   border-radius: 20px;
   padding: 1rem 1.5rem;
-  box-shadow: 0 6px 24px rgba(126, 34, 206, 0.2);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft subtle shadow */
+  backdrop-filter: none; /* Remove blur as it won't work well on solid background */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Add border-color transition */
 }
 
 .cart-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(126, 34, 206, 0.4);
+  transform: translateY(-5px); /* Lift slightly on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* More pronounced shadow on hover */
+  border-color: #f59e0b; /* Amber border on hover */
 }
 
 .cart-item img {
@@ -55,6 +57,7 @@
   height: 70px;
   border-radius: 14px;
   object-fit: cover;
+  border: 1px solid #e5e7eb; /* Add a subtle border to images */
 }
 
 .item-details {
@@ -65,24 +68,25 @@
 .item-details h3 {
   font-size: 1.2rem;
   margin: 0;
+  color: #1f2937; /* Dark charcoal for item name */
 }
 
 .item-details p {
   margin: 0.2rem 0;
-  color: #d1d5db;
+  color: #6b7280; /* Medium grey for item details/price */
 }
 
 .remove-btn {
   background: transparent;
   border: none;
   font-size: 1.3rem;
-  color: #f87171;
+  color: #f87171; /* Retain red for remove button */
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .remove-btn:hover {
-  color: #ef4444;
+  color: #ef4444; /* Darker red on hover */
 }
 
 .cart-actions {
@@ -101,36 +105,77 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none; /* Ensure it looks like a button if it's an anchor */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .place-btn {
-  background: linear-gradient(90deg, #7e22ce, #be185d);
+  background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient for primary action */
   color: #fff;
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2); /* Soft amber shadow */
 }
 
 .place-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(190, 24, 93, 0.3);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
 }
 
 .clear-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f3f4f6;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff; /* White background for clear button */
+  color: #1f2937; /* Dark charcoal text */
+  border: 1px solid #e5e7eb; /* Light grey border */
 }
 
 .clear-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: #f3f4f6; /* Very light grey on hover */
+  border-color: #d1d5db; /* Slightly darker light grey border on hover */
 }
 
 .loader {
-  color: #fbbf24;
+  color: #f59e0b; /* Amber for loader */
   font-size: 1.2rem;
   margin-top: 4rem;
 }
 
 .error {
-  color: #f87171;
+  color: #f87171; /* Red for errors */
   font-size: 1.2rem;
   margin-top: 4rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+  }
+
+  .cart-item img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+  }
+
+  .item-details {
+      width: 100%;
+  }
+
+  .remove-btn {
+      align-self: flex-end; /* Push remove button to the end */
+      margin-top: -3.5rem; /* Adjust to float it better */
+      margin-right: -0.5rem;
+  }
+
+  .cart-actions {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px; /* Constrain button width on small screens */
+  }
+
+  .place-btn, .clear-btn {
+      width: 100%;
+  }
 }

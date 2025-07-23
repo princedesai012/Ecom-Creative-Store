@@ -35,8 +35,9 @@ const LoginPage = () => {
       <div className="login-form-wrapper">
         <div className="login-form-header">
           <a href="/" className="brand-logo">
-            <Volume2 size={18} />
-            <span>ZepCart</span>
+            <span>
+            <Volume2 size={20} /> ZepCart
+            </span>
           </a>
           <h1 className="login-title">Welcome Back</h1>
           <p className="login-subtitle">Enter your credentials to access your account.</p>

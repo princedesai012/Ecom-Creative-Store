@@ -1,169 +1,99 @@
+/* PaymentPage.css - Charcoal & Amber Palette */
+
+/* Based on Charcoal & Amber Palette:
+   Background: #f3f4f6 (very light grey)
+   Main Text: #1f2937 (dark charcoal)
+   Muted Text: #6b7280 (medium grey)
+   Primary Accent: #f59e0b (amber)
+   Secondary Accent/Gradient End: #fbbf24 (lighter amber)
+   Borders/Subtle Backgrounds: #e5e7eb (light grey), #ffffff (white)
+*/
+
 .payment-page {
   min-height: 100vh;
   display: flex;
+  flex-direction: column; /* Allow stacking of elements if needed */
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1f0036);
+  background-color: #f3f4f6; /* Very light grey background */
   padding: 2rem;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif; /* Consistent font family */
+  color: #1f2937; /* Dark charcoal for default text */
 }
 
-.payment-page > div,
-.payment-container {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
+/* Common Card Styling for both general payment page and detailed payment card */
+.payment-page > div, /* For the simpler initial payment page div */
+.payment-container, /* From the first provided block, for simpler payment success/failure */
+.payment-card, /* For the detailed payment summary card */
+.summary { /* For the total summary if separated */
+  background: #ffffff; /* White background for all cards */
+  /* Removed backdrop-filter as it's for glass effect */
+  border: 1px solid #e5e7eb; /* Light grey border */
   border-radius: 20px;
-  padding: 2.5rem 3rem;
-  color: #ffffff;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  text-align: center;
-  max-width: 420px;
+  padding: 2.5rem 3rem; /* Generous padding */
+  color: #1f2937; /* Dark charcoal for card text */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  text-align: center; /* Default center align for general messages */
+  max-width: 500px; /* Adjusted max-width */
   width: 100%;
   animation: fadeIn 0.4s ease;
+  display: flex; /* Ensure flex for internal alignment */
+  flex-direction: column; /* Stack contents vertically */
+  gap: 1.4rem; /* Gap for consistency */
 }
 
+/* Specific overrides for main page title/message */
 .payment-page h2 {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: #1f2937; /* Dark charcoal */
+  text-align: center; /* Ensure title is centered */
 }
 
 .payment-page p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
-  color: #e0d8f9;
+  color: #6b7280; /* Medium grey for muted text */
+  text-align: center; /* Ensure message is centered */
 }
 
-.payment-page button {
-  background: linear-gradient(to right, #9333ea, #a855f7, #7e22ce);
-  color: #fff;
-  padding: 0.85rem 1.5rem;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
-}
-
-.payment-page button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.45);
-}
-
-/* Optional fade-in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* PaymentPage.css */
-
-.payment-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #2e026d);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 2rem;
-}
-
-.summary {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 15px;
-  padding: 2rem;
-  margin: 1rem 0;
-  backdrop-filter: blur(10px);
-  width: 100%;
-  max-width: 500px;
-}
-
-.total {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
-
-button {
-  padding: 0.8rem 1.5rem;
-  background: linear-gradient(to right, #9333ea, #a855f7);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-.payment-page {
-  min-height: 100vh;
-  background: linear-gradient(to right, #2e026d, #6e1ab2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.payment-card {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border-radius: 18px;
-  padding: 2.5rem 2rem;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  animation: fadeIn 0.4s ease-out;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
+/* Address Box within the detailed payment card */
 .address-box {
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: #f9fafb; /* Very light grey background */
   border-radius: 12px;
   font-size: 0.95rem;
   line-height: 1.5;
-  border-left: 4px solid #9333ea;
+  border-left: 4px solid #f59e0b; /* Amber left border accent */
+  color: #1f2937; /* Dark charcoal text for address */
+  text-align: left; /* Align address text left */
+}
+.address-box strong { /* For names or key parts in address */
+  font-weight: 600;
+}
+.address-box span { /* For general address lines */
+  color: #6b7280;
 }
 
+
+/* Cart Summary within the detailed payment card */
 .cart-summary {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid #e5e7eb; /* Light grey separator */
 }
 
 .item-row {
   display: flex;
   justify-content: space-between;
   font-size: 0.95rem;
-  color: #e5e5e5;
+  color: #1f2937; /* Dark charcoal for item names */
+}
+.item-row span:last-child { /* For item price */
+  color: #6b7280; /* Muted grey for item price */
 }
 
 .total-row {
@@ -171,47 +101,51 @@ button:hover {
   justify-content: space-between;
   font-size: 1.2rem;
   font-weight: bold;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid #d1d5db; /* Slightly darker grey border for total line */
   padding-top: 0.8rem;
   margin-top: 0.6rem;
-  color: #ffffff;
+  color: #1f2937; /* Dark charcoal for total text */
+}
+.total-row span:last-child { /* For the total amount */
+  color: #f59e0b; /* Amber for the final total amount */
 }
 
+/* Combined Button Styling for all buttons on this page */
+.payment-page button,
 .pay-btn {
-  margin-top: 1rem;
-  padding: 0.9rem;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 0.9rem 1.8rem; /* Consistent padding */
+  background: linear-gradient(to right, #f59e0b, #fbbf24); /* Amber gradient */
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(to right, #a855f7, #9333ea);
-  color: white;
+  border-radius: 9999px; /* Pill shape */
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2); /* Amber shadow */
+  margin-top: 1.5rem; /* Ensure consistent margin from elements above */
+  display: inline-flex; /* For centering content */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* In case it's an anchor */
 }
 
+.payment-page button:hover,
 .pay-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
+}
+.payment-page button:active,
+.pay-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Loader Styling */
 .loader {
   margin-top: 1rem;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #7e22ce;
+  border: 4px solid #e5e7eb; /* Light grey border */
+  border-top: 4px solid #f59e0b; /* Amber top border */
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -225,4 +159,41 @@ button:hover {
   100% { transform: rotate(360deg); }
 }
 
+/* Optional fade-in animation (unchanged) */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(15px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
 
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .payment-page {
+      padding: 1.5rem;
+  }
+
+  .payment-page > div,
+  .payment-container,
+  .payment-card,
+  .summary {
+      padding: 2rem 1.5rem; /* Reduce padding on smaller screens */
+  }
+
+  .payment-page h2 {
+      font-size: 1.8rem;
+  }
+
+  .payment-page p {
+      font-size: 1rem;
+  }
+
+  .payment-page button,
+  .pay-btn {
+      width: 100%; /* Full width buttons on small screens */
+  }
+}

@@ -12,8 +12,8 @@ import {
 import "../css/LandingPage.css"; 
 
 const imageUrls = {
-  abstractTech: 'https://plus.unsplash.com/premium_photo-1678099940967-73fe30680949?w=500&auto=format&fit=crop&q=60',
-  mainProduct: 'https://t4.ftcdn.net/jpg/14/08/64/83/240_F_1408648340_bQHXLioid5yCVVhEX9TkNRUSHdAMyLLC.jpg',
+  abstractTech: 'https://m.media-amazon.com/images/I/61cVPf4PZeL._AC_UF894,1000_QL80_.jpg',
+  mainProduct: 'https://png.pngtree.com/thumb_back/fh260/background/20230704/pngtree-electronic-devices-in-3d-rendering-on-white-background-mock-up-image_3755986.jpg',
   personUsingTech: 'https://media.gettyimages.com/id/599104836/photo/increasing-her-efforts-to-maximise-her-success.jpg?s=612x612&w=0&k=20&c=09pcUcgrZg_LRUaHE1D_O9HwkSi0yXhopxiJe8VEqwA=',
 };
 

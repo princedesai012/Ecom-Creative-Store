@@ -1,147 +1,142 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-/* --- CSS VARIABLES & GLOBAL STYLES --- */
-:root {
-  --bg-deep-purple: #0c0a1a;
-  --primary-glow: #7e22ce;
-  --secondary-glow: #be185d;
-  --accent-gold: #fbbf24;
-  --text-light: #f3f4f6;
-  --text-muted: #9ca3af;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-}
+/* --- GLOBAL STYLES (Adjusted for Charcoal & Amber) --- */
+/* Removed :root variables as colors are directly applied now for consistency across files */
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bg-deep-purple);
-  color: var(--text-light);
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+    background-color: #f3f4f6; /* Very light grey background for the entire page */
+    color: #1f2937; /* Dark charcoal for default text */
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
-
-
-
-
 .admin-login-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 40px;
-  background: rgba(20, 20, 40, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    background: #ffffff; /* White background for the login card */
+    /* Removed backdrop-filter as it's for glass effect and not needed on solid background */
+    border: 1px solid #e5e7eb; /* Light grey border */
+    border-radius: 12px;
+    color: #1f2937; /* Dark charcoal for text within the container */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Softer shadow for light theme */
 }
 
 .admin-login-container h2 {
-  text-align: center;
-  margin-bottom: 24px;
-  font-size: 28px;
-  font-weight: 700;
-  color: #f5f5f5;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937; /* Dark charcoal for heading */
 }
 
 .admin-login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .admin-login-form input {
-  padding: 12px;
-  font-size: 16px;
-  background: #1c1c3b;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  outline: none;
-  transition: background 0.3s ease;
+    padding: 12px;
+    font-size: 16px;
+    background: #f9fafb; /* Very light grey background for inputs */
+    border: 1px solid #d1d5db; /* Light grey border */
+    border-radius: 8px;
+    color: #1f2937; /* Dark charcoal for input text */
+    outline: none;
+    transition: all 0.3s ease;
 }
 
 .admin-login-form input::placeholder {
-  color: #bbb;
+    color: #a1a1aa; /* Muted grey for placeholder */
 }
 
 .admin-login-form input:focus {
-  background: #22224c;
+    background: #ffffff; /* White background on focus */
+    border-color: #f59e0b; /* Amber border on focus */
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* Amber glow on focus */
 }
 
 .admin-login-form button {
-  padding: 12px;
-  background: #ff4081;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    padding: 12px;
+    background: linear-gradient(to right, #f59e0b, #fbbf24); /* Amber gradient for button */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px; /* Consistent border radius with inputs */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2); /* Amber shadow */
 }
 
 .admin-login-form button:hover {
-  background: #e91e63;
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
 }
 
 .admin-login-form button:disabled {
-  background: #666;
-  cursor: not-allowed;
+    background: #e5e7eb; /* Lighter grey for disabled state */
+    color: #a1a1aa; /* Muted text color for disabled */
+    cursor: not-allowed;
+    box-shadow: none; /* No shadow when disabled */
+    transform: none; /* No transform when disabled */
 }
 
 .error-message {
-  color: #ff4f4f;
-  text-align: center;
-  font-size: 14px;
+    color: #ef4444; /* Red for error messages */
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px; /* Added some top margin */
 }
 
 
 /* Responsive */
 @media (max-width: 768px) {
-  .admin-login-container {
-    margin: 60px 20px;
-    padding: 30px 20px;
-  }
+    .admin-login-container {
+        margin: 60px 20px;
+        padding: 30px 20px;
+    }
 
-  .admin-login-container h2 {
-    font-size: 24px;
-  }
+    .admin-login-container h2 {
+        font-size: 24px;
+    }
 
-  .admin-login-form input,
-  .admin-login-form button {
-    font-size: 15px;
-    padding: 10px;
-  }
+    .admin-login-form input,
+    .admin-login-form button {
+        font-size: 15px;
+        padding: 10px;
+    }
 }
 
 @media (max-width: 480px) {
-  .admin-login-container {
-    margin: 40px 15px;
-    padding: 25px 15px;
-    border-radius: 10px;
-  }
+    .admin-login-container {
+        margin: 40px 15px;
+        padding: 25px 15px;
+        border-radius: 10px;
+    }
 
-  .admin-login-container h2 {
-    font-size: 20px;
-  }
+    .admin-login-container h2 {
+        font-size: 20px;
+    }
 
-  .admin-login-form {
-    gap: 12px;
-  }
+    .admin-login-form {
+        gap: 12px;
+    }
 
-  .admin-login-form input,
-  .admin-login-form button {
-    font-size: 14px;
-    padding: 8px;
-  }
+    .admin-login-form input,
+    .admin-login-form button {
+        font-size: 14px;
+        padding: 8px;
+    }
 
-  .error-message {
-    font-size: 13px;
-  }
+    .error-message {
+        font-size: 13px;
+    }
 }

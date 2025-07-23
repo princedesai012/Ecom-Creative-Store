@@ -52,7 +52,7 @@ const FeedbackPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--input-bg, rgba(0,0,0,0.2))', color: 'var(--text-light)' }}
+              style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--input-bg, rgba(0,0,0,0.2))', color: 'black' }}
             />
 
             <textarea

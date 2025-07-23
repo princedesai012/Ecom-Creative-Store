@@ -1,22 +1,14 @@
-:root {
-  --bg-deep-purple: #0c0a1a;
-  --primary-glow: #7e22ce;
-  --secondary-glow: #be185d;
-  --accent-gold: #fbbf24;
-  --text-light: #f3f4f6;
-  --text-muted: #9ca3af;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-}
+/* src/components/AddProduct.css - Refactored for Charcoal & Amber Palette */
+
+/* Removed :root variables as colors are directly applied now for consistency across files */
 
 .add-product-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at top, var(--primary-glow), transparent 60%),
-              radial-gradient(ellipse at bottom, var(--secondary-glow), transparent 60%);
-  background-color: var(--bg-deep-purple);
+  background-color: #f3f4f6; /* Very light grey background */
+  /* Removed radial gradients */
   padding: 2rem;
   font-family: 'Inter', sans-serif;
 }
@@ -24,13 +16,13 @@
 .add-product-card {
   width: 100%;
   max-width: 500px;
-  background: var(--glass-bg);
-  border: 1px solid var(--border-color);
+  background: #ffffff; /* White background for the form card */
+  border: 1px solid #e5e7eb; /* Light grey border */
   border-radius: 20px;
   padding: 2.5rem;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  color: var(--text-light);
+  /* Removed backdrop-filter as it's for glass effect */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Softer shadow for light theme */
+  color: #1f2937; /* Dark charcoal for text */
   animation: fadeIn 0.8s ease forwards;
   opacity: 0;
   transform: translateY(20px);
@@ -38,8 +30,8 @@
 
 @keyframes fadeIn {
   to {
-    opacity: 1;
-    transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
   }
 }
 
@@ -48,10 +40,11 @@
   font-weight: 700;
   margin-bottom: 0.5rem;
   text-align: center;
+  color: #1f2937; /* Dark charcoal */
 }
 
 .add-product-card p {
-  color: var(--text-muted);
+  color: #6b7280; /* Medium grey for muted text */
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -61,13 +54,14 @@
 }
 
 .input-group input,
-.input-group textarea {
+.input-group textarea,
+.category-select { /* Added category-select here for shared styles */
   width: 100%;
   padding: 1rem;
   border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
-  color: var(--text-light);
+  background-color: #f9fafb; /* Very light grey background for inputs/select */
+  border: 1px solid #d1d5db; /* Light grey border */
+  color: #1f2937; /* Dark charcoal for text */
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -78,77 +72,115 @@
 
 .input-group input::placeholder,
 .input-group textarea::placeholder {
-  color: var(--text-muted);
+  color: #a1a1aa; /* Muted grey for placeholder */
 }
 
 .input-group input:focus,
-.input-group textarea:focus {
+.input-group textarea:focus,
+.category-select:focus { /* Added category-select here for focus styles */
   outline: none;
-  border-color: var(--primary-glow);
-  box-shadow: 0 0 15px rgba(126, 34, 206, 0.5);
+  border-color: #f59e0b; /* Amber border on focus */
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* Amber glow on focus */
 }
 
 .submit-btn {
   width: 100%;
   padding: 1rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+  border-radius: 9999px; /* Pill shape for consistency */
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600; /* Medium bold */
+  background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient */
   color: white;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(190, 24, 93, 0.3);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.25); /* Amber shadow */
 }
 
 .submit-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(190, 24, 93, 0.4);
+  box-shadow: 0 15px 40px rgba(245, 158, 11, 0.35); /* More pronounced amber shadow */
 }
-.category-select {
-  width: 100%;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  color: var(--text-light);
-  font-size: 1rem;
-  appearance: none;
-  
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2);
 }
 
-.category-select:focus {
-  outline: none;
-  border-color: var(--primary-glow);
-  box-shadow: 0 0 15px rgba(126, 34, 206, 0.5);
+.category-select {
+  /* Specific styles for select, overriding common input-group ones if needed */
+  /* background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>'); */
+  /* background-repeat: no-repeat; */
+  /* background-position: right 12px center; */
+  /* background-size: 20px; */
+  /* appearance: none; */
+  /* -webkit-appearance: none; */
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {
   .add-product-container {
-    padding: 1rem;
-    align-items: flex-start;
+      padding: 1rem;
+      align-items: flex-start; /* Align to top on small screens */
   }
 
   .add-product-card {
-    padding: 1.5rem;
-    border-radius: 16px;
+      padding: 1.5rem;
+      border-radius: 16px;
   }
 
   .add-product-card h2 {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
+  }
+
+  .add-product-card p {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+  }
+
+  .input-group {
+      margin-bottom: 1rem;
   }
 
   .input-group input,
   .input-group textarea,
   .category-select {
-    padding: 0.75rem;
-    font-size: 0.95rem;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      border-radius: 10px; /* Slightly smaller border radius */
   }
 
   .submit-btn {
-    padding: 0.75rem;
-    font-size: 0.95rem;
+      padding: 0.85rem; /* Adjusted for consistency */
+      font-size: 1rem;
+      border-radius: 9999px; /* Keep pill shape */
+  }
+}
+
+@media (max-width: 480px) {
+  .add-product-card {
+      padding: 1rem;
+  }
+
+  .add-product-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+  }
+
+  .add-product-card p {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+  }
+
+  .input-group input,
+  .input-group textarea,
+  .category-select {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+  }
+
+  .submit-btn {
+      padding: 0.7rem;
+      font-size: 0.9rem;
   }
 }

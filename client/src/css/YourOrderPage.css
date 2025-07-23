@@ -1,229 +1,407 @@
-/* src/css/YourOrderPage.css */
+/* src/css/YourOrderPage.css - Charcoal & Amber Palette (No Root Variables) */
 
-/* --- Theme Variables --- */
-:root {
-  --bg-deep-purple: #0c0a1a;
-  --primary-glow: #7e22ce;
-  --secondary-glow: #be185d;
-  --text-light: #f3f4f6;
-  --text-muted: #9ca3af;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --danger-red: #ef4444;
-  --success-green: #22c55e;
-  --accent-gold: #fbbf24;
-}
+/* --- Theme Colors (Directly Applied) --- */
+/* Based on Charcoal & Amber Palette:
+    Background: #f3f4f6 (very light grey)
+    Main Text: #1f2937 (dark charcoal)
+    Muted Text: #6b7280 (medium grey)
+    Primary Accent: #f59e0b (amber)
+    Secondary Accent/Gradient End: #fbbf24 (lighter amber)
+    Borders/Subtle Backgrounds: #e5e7eb (light grey), #ffffff (white)
+    Danger/Red: #ef4444 (from your provided colors)
+    Success/Green: #22c55e (from your provided colors)
+*/
 
 .your-orders-page {
-  min-height: 100vh;
-  padding: 8rem 2rem 4rem;
-  background-color: var(--bg-deep-purple);
-  color: var(--text-light);
-  font-family: 'Inter', sans-serif;
-  min-width : 700px;
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem;
+    background-color: #f3f4f6; /* Very light grey background */
+    color: #1f2937; /* Dark charcoal for main text */
+    font-family: 'Inter', sans-serif;
+    /* min-width: 700px; - Removed as it causes horizontal scroll on smaller desktops/laptops.
+                         The content should adapt naturally or through media queries. */
 }
 
 .orders-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 4rem;
-  color: var(--text-light);
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: #1f2937; /* Dark charcoal for title */
+    position: relative;
+    display: block; /* Changed to block for easier centering with margin auto */
+    margin-left: auto; /* Center the block title */
+    margin-right: auto; /* Center the block title */
+    width: fit-content; /* Ensure the underline only spans the text width */
 }
+
 .orders-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient */
 }
 
 .orders-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
 }
 
 .order-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 2rem;
-  transition: all 0.4s ease;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: #ffffff; /* White background for order cards */
+    border: 1px solid #e5e7eb; /* Light grey border */
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft subtle shadow */
+    overflow: hidden; /* Ensure gradient border doesn't overflow */
 }
 
 .order-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 20px;
-  border: 2px solid transparent;
-  background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow)) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #f59e0b, #fbbf24) border-box; /* Amber gradient for card border */
+    /* Webkit masks for gradient borders on older browsers */
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude; /* Standard property for composite masks */
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .order-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    /* Changed background to solid white on hover to keep it clean */
+    background: #ffffff; /* Card remains white, but border appears */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* More pronounced shadow on hover */
 }
 
 .order-card:hover::before {
-  opacity: 1;
+    opacity: 1; /* Show the gradient border on hover */
 }
 
 .order-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb; /* Light grey border */
 }
+
 .order-header div {
-  font-size: 0.95rem;
-  color: var(--text-muted);
+    font-size: 0.95rem;
+    color: #6b7280; /* Medium grey for muted text */
 }
+
 .order-header strong {
-  color: var(--text-light);
+    color: #1f2937; /* Dark charcoal */
 }
 
 .status-badge {
-  padding: 0.4rem 1rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: capitalize;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
 }
 
 .status-pending {
-  background-color: rgba(251, 191, 36, 0.1);
-  color: var(--accent-gold);
+    background-color: rgba(251, 191, 36, 0.1); /* Amber with transparency */
+    color: #f59e0b; /* Amber */
 }
 
 .status-delivered {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: var(--success-green);
+    background-color: rgba(34, 197, 94, 0.1); /* Green with transparency */
+    color: #22c55e; /* Success green */
 }
 
 .status-cancelled {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: var(--danger-red);
+    background-color: rgba(239, 68, 68, 0.1); /* Red with transparency */
+    color: #ef4444; /* Danger red */
+}
+/* Added processing status based on other files */
+.status-processing {
+    background-color: rgba(250, 204, 21, 0.1); /* Yellow with transparency */
+    color: #facc15; /* Accent yellow */
+}
+/* Added shipped status based on other files */
+.status-shipped {
+    background-color: rgba(59, 130, 246, 0.1); /* Light blue tint */
+    color: #3b82f6; /* Blue text */
 }
 
 .status-unknown {
-  background-color: rgba(156, 163, 175, 0.1);
-  color: var(--text-muted);
+    background-color: rgba(156, 163, 175, 0.1); /* Grey with transparency */
+    color: #6b7280; /* Muted text */
 }
 
 .order-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 1rem; /* Space between rows (Date, Total, Items) */
+    margin-bottom: 2rem;
+    text-align: left;
+    align-items: flex-start;
 }
 
-.order-body p,
+.order-detail-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #6b7280; /* Muted text for the label */
+}
+
+.order-detail-row strong {
+    color: #1f2937; /* Dark charcoal */
+    font-weight: 600;
+    flex-shrink: 0; /* Prevent label from shrinking */
+}
+
 .order-items {
-  font-size: 1rem;
-  color: var(--text-muted);
+    font-size: 1rem;
+    color: #6b7280; /* Medium grey */
+    text-align: left;
+}
+.order-info{
+  text-align: left;
+}
+.order-items > strong {
+    display: block;
+    color: #1f2937; /* Dark charcoal */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.order-body strong {
-  display: block;
-  color: var(--text-light);
-  margin-bottom: 0.5rem;
+.order-item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.order-items ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0;
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    color: #1f2937; /* Product name color */
+    font-size: 0.95rem;
 }
 
-.order-items li {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
+.order-item-price {
+    color: #6b7280; /* Muted color for the price below item name */
+    font-size: 0.85rem;
+    display: block;
+}
+
+.order-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb; /* Light grey border */
+    flex-shrink: 0;
+}
+
+.order-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1; /* Allow details to take available space */
 }
 
 .cancel-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--danger-red);
-  border-radius: 50px;
-  background-color: rgba(23, 1, 22, 0.1);
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: inline-flex;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none; /* Removed redundant border, background handles it */
+    background: linear-gradient(90deg, #f59e0b, #fbbf24); /* Amber gradient for consistency */
+    color: white; /* White text for primary action */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px; /* Pill shape for consistency */
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); /* Amber shadow */
 }
 
+/* This is the hover for the amber button. If it's a "cancel" button,
+   it typically would be red. I'll make a separate class for a red cancel button. */
 .cancel-btn:hover {
-  background-color: var(--danger-red);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(90deg, #fbbf24, #f59e0b); /* Slight shift on hover */
 }
+
+/* New class for a specific Red Cancel button */
+.red-cancel-btn {
+    display: inline-flex;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ef4444; /* Red border */
+    background-color: transparent; /* Transparent background */
+    color: #ef4444; /* Red text */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px; /* Pill shape */
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.1);
+}
+
+.red-cancel-btn:hover {
+    background-color: #ef4444; /* Solid danger red on hover */
+    color: white; /* White text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+.red-cancel-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
 
 .orders-loading,
 .no-orders {
-  text-align: center;
-  padding: 5rem 2rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  border: 2px dashed var(--border-color);
-  border-radius: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
+    text-align: center;
+    padding: 5rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #6b7280; /* Muted text */
+    border: 2px dashed #e5e7eb; /* Light grey dashed border */
+    border-radius: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-  .order-body {
-    grid-template-columns: 1fr;
-  }
-}
-  .order-item-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    .your-orders-page {
+        padding: 6rem 1rem 2rem; /* Adjust padding for smaller screens */
+        min-width: unset; /* Allow the page to shrink, remove fixed min-width */
+    }
+
+    .orders-title {
+        font-size: clamp(2rem, 8vw, 2.8rem); /* Adjust title size for smaller screens */
+        margin-bottom: 3rem;
+    }
+
+    .orders-container {
+        gap: 1.5rem; /* Reduce gap between cards */
+    }
+
+    .order-card {
+        padding: 1.5rem; /* Adjust card padding */
+        border-radius: 15px; /* Slightly smaller radius */
+    }
+    .order-card::before {
+        border-radius: 15px; /* Match inner radius */
+    }
+
+    .order-header {
+        flex-direction: column; /* Stack header items on small screens */
+        align-items: flex-start; /* Align header items to the left */
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .order-header div {
+        font-size: 0.85rem;
+    }
+
+    .order-item {
+        flex-direction: column; /* Stack image and details on very small screens */
+        align-items: flex-start; /* Align items to start */
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .order-item-image {
+        width: 60px; /* Smaller image on mobile */
+        height: 60px;
+        border-radius: 8px;
+    }
+
+    .order-item-details {
+        text-align: left; /* Ensure text is left-aligned */
+    }
+    .order-item-price {
+        font-size: 0.8rem; /* Smaller price font */
+    }
+
+    .cancel-btn, .red-cancel-btn {
+        width: 100%; /* Full width button on small screens */
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .orders-loading,
+    .no-orders {
+        padding: 3rem 1rem;
+        font-size: 1rem;
+        border-radius: 15px;
+    }
 }
 
-.order-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.order-item-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
+@media (max-width: 480px) {
+    .your-orders-page {
+        padding: 5rem 0.5rem 1.5rem;
+    }
+    .orders-title {
+        font-size: 2.2rem; /* Even smaller title */
+        margin-bottom: 2rem;
+    }
+    .orders-container {
+        gap: 1rem;
+    }
+    .order-card {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    .order-card::before {
+        border-radius: 10px;
+    }
+    .order-header {
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
+    .order-item {
+        gap: 0.7rem;
+        margin-bottom: 0.6rem;
+        font-size: 0.9rem;
+    }
+    .order-item-image {
+        width: 50px;
+        height: 50px;
+    }
+    .cancel-btn, .red-cancel-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
 }

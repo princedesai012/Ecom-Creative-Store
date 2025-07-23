@@ -1,6 +1,17 @@
+/* AddressForm.css - Charcoal & Amber Palette */
+
+/* Based on Charcoal & Amber Palette:
+   Background: #f3f4f6 (very light grey)
+   Main Text: #1f2937 (dark charcoal)
+   Muted Text: #6b7280 (medium grey)
+   Primary Accent: #f59e0b (amber)
+   Secondary Accent/Gradient End: #fbbf24 (lighter amber)
+   Borders/Subtle Backgrounds: #e5e7eb (light grey), #ffffff (white)
+*/
+
 .address-form-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1f0036, );
+  background-color: #f3f4f6; /* Very light grey background */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,16 +21,15 @@
 }
 
 .address-form {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff; /* White background for the form card */
+  /* Remove backdrop-filter as it's for glass effect which we're moving away from */
+  border: 1px solid #e5e7eb; /* Light grey border */
   border-radius: 20px;
   padding: 3rem 2.5rem;
   width: 100%;
   max-width: 520px;
-  color: #f3f3f3;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  color: #1f2937; /* Dark charcoal for form text */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); /* Softer shadow for light theme */
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -30,7 +40,7 @@
 .address-form h2 {
   font-size: 2.2rem;
   text-align: center;
-  color: #ffffff;
+  color: #1f2937; /* Dark charcoal for heading */
   margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -44,7 +54,7 @@
 
 .form-group label {
   font-size: 0.95rem;
-  color: #e0d8f9;
+  color: #6b7280; /* Medium grey for labels */
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -52,10 +62,10 @@
 
 .address-form input {
   padding: 0.85rem 1.1rem;
-  border: none;
+  border: 1px solid #d1d5db; /* Light grey border for inputs */
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #f9fafb; /* Very light grey background for inputs */
+  color: #1f2937; /* Dark charcoal for input text */
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
@@ -63,44 +73,44 @@
 }
 
 .address-form input::placeholder {
-  color: #cccccc;
+  color: #a1a1aa; /* Slightly darker placeholder for better visibility */
 }
 
 .address-form input:focus {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.4);
-  transform: scale(1.02);
+  background-color: #ffffff; /* White background on focus */
+  border-color: #f59e0b; /* Amber border on focus */
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3); /* Amber glow on focus */
+  transform: none; /* Remove scale on focus for input fields */
 }
 
 .address-form button {
   padding: 0.9rem 1.4rem;
   margin-top: 1rem;
-  background: linear-gradient(to right, #9333ea, #a855f7, #7e22ce);
+  background: linear-gradient(to right, #f59e0b, #fbbf24); /* Amber gradient for button */
   border: none;
   border-radius: 12px;
-  color: #ffffff;
+  color: #ffffff; /* White text for button */
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2); /* Amber shadow */
 }
 
 .address-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.45);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.3); /* More pronounced amber shadow */
 }
 
-/* Fade-in animation */
+/* Fade-in animation (unchanged) */
 @keyframes fadeIn {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+      opacity: 0;
+      transform: translateY(20px);
   }
-
   to {
-    opacity: 1;
-    transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
   }
 }
