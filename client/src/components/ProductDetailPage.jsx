@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, Minus, Plus } from 'lucide-react';
-import './ProductDetailPage.css';
-import { getProductById, addReviewToProduct, getReviewtoproduct } from '../api/products.api';
+import '../css/ProductDetailPage.css';
+import {
+  getProductById,
+  addReviewToProduct,
+  getReviewtoproduct,
+  getAllProducts
+} from '../api/products.api';
 import { addToCart } from "../api/cart.api";
-import { useNavigate } from 'react-router-dom';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -15,6 +20,7 @@ const ProductDetailPage = () => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
   const [posting, setPosting] = useState(false);
+  const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -25,6 +31,12 @@ const ProductDetailPage = () => {
 
         const fetchedReviews = await getReviewtoproduct(id);
         setReviews(fetchedReviews.reviews || []);
+
+        const all = await getAllProducts();
+        const filtered = all.products.filter(
+          (p) => p._id !== id && p.category === data.product.category
+        );
+        setAllProducts(filtered.slice(0, 4));
       } catch (err) {
         setError('Failed to fetch product details.');
       } finally {
@@ -34,16 +46,12 @@ const ProductDetailPage = () => {
 
     fetchProductDetails();
   }, [id]);
-  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
     if (!product?._id) return;
-
     try {
       await addToCart(product._id, quantity);
-      navigate("/cart")
-      
-
+      navigate("/cart");
     } catch (error) {
       console.error("Add to cart failed:", error);
       alert("Failed to add item to cart.");
@@ -79,11 +87,7 @@ const ProductDetailPage = () => {
   }
 
   if (error || !product) {
-    return (
-      <div className="error-message">
-        {error || "Product not found."}
-      </div>
-    );
+    return <div className="error-message">{error || "Product not found."}</div>;
   }
 
   return (
@@ -115,11 +119,29 @@ const ProductDetailPage = () => {
           Add to Cart
         </button>
       </div>
+       {/* Related Products Section */}
+      {allProducts.length > 0 && (
+        <div className="related-products">
+          <h3 className="related-title">🛍️ You May Also Like</h3>
+          <div className="related-grid">
+            {allProducts.map((prod) => (
+              <div
+                key={prod._id}
+                className="related-card"
+                onClick={() => navigate(`/product/${prod._id}`)}
+              >
+                <img src={prod.imageUrl} alt={prod.name} className="related-image" />
+                <p className="related-name">{prod.name}</p>
+                <p className="related-price">₹{prod.price.toLocaleString("en-IN")}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Add Review Section */}
       <div className="review-section">
         <h3 className="review-title">📝 Add a Review</h3>
-
         <div className="review-form">
           <div className="review-stars">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -132,13 +154,11 @@ const ProductDetailPage = () => {
               </span>
             ))}
           </div>
-
           <textarea
             placeholder="Write your comment..."
             value={newReview.comment}
             onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
           />
-
           <button onClick={handleReviewSubmit} disabled={posting}>
             {posting ? "Posting..." : "Submit Review"}
           </button>
@@ -168,6 +188,8 @@ const ProductDetailPage = () => {
           <p>No reviews yet.</p>
         )}
       </div>
+
+     
     </div>
   );
 };

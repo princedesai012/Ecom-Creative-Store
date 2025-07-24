@@ -59,10 +59,15 @@ const YourOrderPage = () => {
       <h2 className="orders-title">📦 Your Orders</h2>
 
       {loading ? (
-        <div className="orders-loading">Loading your order history...</div>
-      ) : orders.length === 0 ? (
-        <p className="no-orders">You haven't placed any orders yet.</p>
-      ) : (
+   <div className="loader-container">
+      <div className="loader-circle" />
+      <p>Loading Your order  details...</p>
+    </div>
+) : orders.length === 0 ? (
+  <p className="no-orders">You haven't placed any orders yet.</p>
+) : (
+
+
         <div className="orders-container">
           {orders.map((order) => (
             <div className="order-card" key={order._id}>

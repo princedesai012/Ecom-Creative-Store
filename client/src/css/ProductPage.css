@@ -112,10 +112,17 @@
   animation: fadeIn 0.5s ease forwards;
   transition: none;
 }
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
 @keyframes fadeIn {
   to { opacity: 1; }
 }
+
+
 
 /* Image */
 .product-image-container {
@@ -151,7 +158,7 @@
   color: #6b7280;
   background-color: #f3f4f6;
   padding: 0.3rem 0.6rem;
-  border-radius: 9999px;
+
   display: inline-block;
   margin-bottom: 0.5rem;
 }
@@ -328,3 +335,85 @@
     width: 100%;
   }
 }
+
+/* Full Page Loader */
+.full-page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+}
+
+.loader-spinner {
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #f59e0b;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Skeleton Enhancements */
+.product-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.skeleton-image {
+  height: 220px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-line {
+  height: 1rem;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-line.title {
+  width: 60%;
+  height: 1.4rem;
+}
+
+.skeleton-line.desc {
+  width: 100%;
+}
+
+.skeleton-line.desc.short {
+  width: 80%;
+}
+
+.skeleton-line.price {
+  width: 40%;
+  height: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+

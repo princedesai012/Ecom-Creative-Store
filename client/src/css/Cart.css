@@ -179,3 +179,33 @@
       width: 100%;
   }
 }
+
+/* Inline Loader (inside the cart page) */
+.inline-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.loader-circle {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #f59e0b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.inline-loader p {
+  font-size: 1rem;
+  color: #4b5563;
+  font-weight: 500;
+}

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCartItems, removeCartItem, clearCart as clearCartAPI } from "../api/cart.api";
+import {
+  getCartItems,
+  removeCartItem,
+  clearCart as clearCartAPI,
+} from "../api/cart.api";
 import "../css/Cart.css";
 
 const Cart = () => {
@@ -29,8 +33,11 @@ const Cart = () => {
 
   const handleRemove = async (productId) => {
     try {
-      await removeCartItem(productId);
-      setCartItems((prev) => prev.filter((item) => item.product._id !== productId));
+      const response = await removeCartItem(productId);
+      console.log("Item removed:", response);
+      setCartItems((prev) =>
+        prev.filter((item) => item.product._id !== productId)
+      );
     } catch (err) {
       console.error("Error removing item:", err);
     }
@@ -38,8 +45,10 @@ const Cart = () => {
 
   const handleClearCart = async () => {
     try {
-      await clearCartAPI();
+      const response = await clearCartAPI();
+      console.log(response)
       setCartItems([]);
+    
     } catch (err) {
       console.error("Error clearing cart:", err);
     }
@@ -51,17 +60,23 @@ const Cart = () => {
       return;
     }
 
-    // Simulate placing order
-    console.log("Order placed:", cartItems);
-   
-
-    
-    
-   //OR to place order page with cartItems
-   navigate("/place-order", { state: { cartItems } });
+    navigate("/place-order", { state: { cartItems } });
   };
 
-  if (loading) return <p className="loader"></p>;
+ 
+   if (loading) {
+  return (
+    <div className="cart-page">
+      <div className="inline-loader">
+        <div className="loader-circle" />
+        <p>Loading cart...</p>
+      </div>
+    </div>
+  );
+
+
+  }
+
   if (error) return <p className="error">{error}</p>;
 
   return (
@@ -74,20 +89,32 @@ const Cart = () => {
           <div className="cart-list">
             {cartItems.map((item) => (
               <div className="cart-item" key={item.product._id}>
-                <img src={item.product.imageUrl} alt={item.product.name} />
+                <img
+                  src={item.product.imageUrl}
+                  alt={item.product.name}
+                />
                 <div className="item-details">
                   <h3>{item.product.name}</h3>
                   <p>Quantity: {item.quantity}</p>
                   <p>₹{item.product.price * item.quantity}</p>
                 </div>
-                <button className="remove-btn" onClick={() => handleRemove(item.product._id)}>✖</button>
+                <button
+                  className="remove-btn"
+                  onClick={() => handleRemove(item.product._id)}
+                >
+                  ✖
+                </button>
               </div>
             ))}
           </div>
 
           <div className="cart-actions">
-            <button className="place-btn" onClick={handlePlaceOrder}>Place Order</button>
-            <button className="clear-btn" onClick={handleClearCart}>Clear Cart</button>
+            <button className="place-btn" onClick={handlePlaceOrder}>
+              Place Order
+            </button>
+            <button className="clear-btn" onClick={handleClearCart}>
+              Clear Cart
+            </button>
           </div>
         </>
       )}

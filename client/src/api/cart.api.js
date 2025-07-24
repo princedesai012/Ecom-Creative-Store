@@ -21,7 +21,7 @@ export const getCartItems = async () => {
 // Remove item from cart by ID
 export const removeCartItem = async (itemId) => {
   try {
-    const response = await API.delete(`/cart/${itemId}`);
+    const response = await API.delete(`/cart/remove/${itemId}`);
     return response.data;
   } catch (error) {
     console.error("Error removing item from cart:", error.response?.data || error.message);
